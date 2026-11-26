@@ -39,6 +39,13 @@ interface CriticReport {
   summary: string;
 }
 
+const ACCENT_GRADIENTS = [
+  "from-cyan-500/20 via-blue-500/10 to-transparent border-cyan-400/30",
+  "from-violet-500/20 via-fuchsia-500/10 to-transparent border-violet-400/30",
+  "from-emerald-500/20 via-teal-500/10 to-transparent border-emerald-400/30",
+  "from-amber-500/20 via-orange-500/10 to-transparent border-amber-400/30",
+];
+
 export default function HomePage() {
   const [query, setQuery] = useState("Backend Python FastAPI engineer");
   const [skillsInput, setSkillsInput] = useState("python, fastapi, postgresql, docker");
@@ -145,108 +152,137 @@ export default function HomePage() {
     }
   }
 
-  function trustPill(score: number) {
+  function trustTheme(score: number) {
     const pct = Math.round(score * 100);
     if (pct >= 70) {
       return {
-        label: `${pct}% TRUSTED`,
-        cls: "border-[#141413] bg-[#141413] text-[#F7F6F2]",
+        pct,
+        label: `${pct}% Trusted`,
+        pill: "border-emerald-400/50 bg-gradient-to-r from-emerald-500/25 to-teal-500/20 text-emerald-200 shadow-sm shadow-emerald-500/20",
+        bar: "from-emerald-400 via-teal-400 to-cyan-400",
       };
     }
     if (pct >= 45) {
       return {
-        label: `${pct}% CAUTION`,
-        cls: "border-[#141413] bg-[#E7E4DC] text-[#141413]",
+        pct,
+        label: `${pct}% Caution`,
+        pill: "border-amber-400/50 bg-gradient-to-r from-amber-500/25 to-orange-500/20 text-amber-200 shadow-sm shadow-amber-500/20",
+        bar: "from-amber-400 via-orange-400 to-yellow-300",
       };
     }
     return {
-      label: `${pct}% GHOST RISK`,
-      cls: "border-[#141413] bg-transparent text-[#141413] underline decoration-2 underline-offset-4",
+      pct,
+      label: `${pct}% High Ghost Risk`,
+      pill: "border-rose-400/50 bg-gradient-to-r from-rose-500/25 to-pink-500/20 text-rose-200 shadow-sm shadow-rose-500/20",
+      bar: "from-rose-500 via-pink-500 to-orange-400",
     };
   }
 
   return (
-    <main className="min-h-screen bg-[#F7F6F2] text-[#141413] selection:bg-[#141413] selection:text-[#F7F6F2]">
-      {/* Editorial Top Nav */}
-      <header className="sticky top-0 z-20 border-b border-[#141413]/15 bg-[#F7F6F2]/95 backdrop-blur-sm">
+    <main className="relative min-h-screen overflow-x-hidden bg-[#06070D] text-slate-100 selection:bg-cyan-400 selection:text-slate-950">
+      {/* Ambient Colorful Mesh Glows */}
+      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        <div className="absolute -left-32 -top-24 h-96 w-96 rounded-full bg-cyan-500/20 blur-3xl" />
+        <div className="absolute right-0 top-16 h-[28rem] w-[28rem] rounded-full bg-fuchsia-600/15 blur-3xl" />
+        <div className="absolute bottom-0 left-1/3 h-96 w-96 rounded-full bg-emerald-500/15 blur-3xl" />
+      </div>
+
+      {/* Top Glass Navbar */}
+      <header className="sticky top-0 z-20 border-b border-white/10 bg-[#06070D]/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-10">
-          <div className="flex items-baseline gap-6">
-            <a href="#" className="text-xl font-semibold tracking-[-0.03em] text-[#141413]">
-              TrueHire<span className="text-xs align-super font-mono ml-1">01</span>
-            </a>
-            <nav className="hidden items-center gap-6 text-xs uppercase tracking-[0.12em] text-[#141413]/70 md:flex">
-              <a href="#search" className="hover:text-[#141413]">Search</a>
-              <a href="#roles" className="hover:text-[#141413]">Open Roles</a>
-              <a href="#critic" className="hover:text-[#141413]">Trust & Critic</a>
-            </nav>
+          <div className="flex items-center gap-4">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 via-indigo-500 to-fuchsia-500 font-mono text-sm font-bold text-slate-950 shadow-lg shadow-indigo-500/30">
+              TH
+            </div>
+            <div>
+              <div className="flex items-center gap-2.5">
+                <span className="bg-gradient-to-r from-white via-cyan-200 to-violet-300 bg-clip-text text-xl font-bold tracking-tight text-transparent">
+                  TrueHire
+                </span>
+                <span className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-2.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-cyan-300">
+                  Live ATS Index
+                </span>
+              </div>
+            </div>
           </div>
+
           <div className="flex items-center gap-3">
-            <span className="hidden font-mono text-[11px] uppercase tracking-[0.08em] text-[#141413]/60 sm:inline">
+            <span className="hidden items-center gap-2 rounded-full border border-emerald-400/25 bg-emerald-500/10 px-3 py-1 font-mono text-[11px] text-emerald-300 sm:inline-flex">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
               {API_BASE}
             </span>
             <button
               type="button"
               onClick={() => void handleSearch()}
-              className="rounded-full border border-[#141413] bg-[#141413] px-4 py-1.5 text-xs font-medium uppercase tracking-[0.08em] text-[#F7F6F2] transition hover:bg-transparent hover:text-[#141413]"
+              className="rounded-full bg-gradient-to-r from-cyan-400 via-indigo-500 to-fuchsia-500 px-4 py-1.5 text-xs font-semibold text-white shadow-md shadow-indigo-500/30 transition hover:brightness-110"
             >
-              Run Search
+              Quick Search
             </button>
           </div>
         </div>
       </header>
 
-      {/* Editorial Hero Statement */}
-      <section id="search" className="border-b border-[#141413]/15">
-        <div className="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-16">
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-end">
+      {/* Hero Banner */}
+      <section className="border-b border-white/10">
+        <div className="mx-auto max-w-7xl px-6 py-10 md:px-10">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-8">
-              <p className="font-mono text-xs uppercase tracking-[0.14em] text-[#141413]/60">
-                DAILY ATS SNAPSHOTS · HYBRID SQL RRF · GHOST SCORING
-              </p>
-              <h1 className="mt-4 text-4xl font-medium leading-[1.03] tracking-[-0.04em] text-[#141413] sm:text-6xl">
-                Roles that mean business. Signals you can trust.
+              <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-violet-500/10 px-3 py-1 font-mono text-[11px] uppercase tracking-widest text-violet-200">
+                <span className="h-1.5 w-1.5 rounded-full bg-violet-400" />
+                Hybrid SQL RRF · Ghost Lifecycle Signals · Risk Critic
+              </div>
+              <h1 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-white sm:text-5xl">
+                Roles that{" "}
+                <span className="bg-gradient-to-r from-cyan-300 via-sky-400 to-indigo-400 bg-clip-text text-transparent">
+                  mean business
+                </span>
+                . Signals you can{" "}
+                <span className="bg-gradient-to-r from-emerald-300 via-teal-300 to-cyan-300 bg-clip-text text-transparent">
+                  actually trust
+                </span>
+                .
               </h1>
             </div>
             <div className="lg:col-span-4">
-              <p className="text-sm leading-relaxed text-[#141413]/75">
-                Search indexed ATS roles across lexical + dense vector fusion, inspect lifecycle ghost-listing risk, and run candidate fit checks without guessing.
+              <p className="text-sm leading-relaxed text-slate-300">
+                Search daily-snapshotted ATS roles with lexical + vector fusion, inspect ghost-job risk signals, and uncover skill gaps before applying.
               </p>
             </div>
           </div>
 
-          {/* Editorial Filter Bar */}
+          {/* Colorful Search & Profile Workbench */}
           <form
             onSubmit={handleSearch}
-            className="mt-10 grid grid-cols-1 gap-4 border-t border-[#141413]/15 pt-6 md:grid-cols-12 md:items-end"
+            className="mt-8 grid grid-cols-1 gap-4 rounded-2xl border border-white/15 bg-gradient-to-br from-white/[0.07] via-indigo-500/[0.04] to-cyan-500/[0.04] p-5 shadow-2xl shadow-black/40 backdrop-blur-md md:grid-cols-12 md:items-end"
           >
             <div className="md:col-span-4">
-              <label className="block font-mono text-[11px] uppercase tracking-[0.1em] text-[#141413]/65">
-                Role or Query
+              <label className="block font-mono text-[11px] font-semibold uppercase tracking-wider text-cyan-300">
+                Role or Keyword Query
               </label>
               <input
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Backend Python FastAPI engineer"
-                className="mt-2 w-full border-b border-[#141413]/40 bg-transparent pb-2 text-sm font-medium text-[#141413] placeholder-[#141413]/40 focus:border-[#141413] focus:outline-none"
+                className="mt-2 w-full rounded-xl border border-white/15 bg-[#0A0D18] px-3.5 py-2.5 text-sm text-white placeholder-slate-500 transition focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20"
               />
             </div>
 
             <div className="md:col-span-4">
-              <label className="block font-mono text-[11px] uppercase tracking-[0.1em] text-[#141413]/65">
-                Candidate Skills
+              <label className="block font-mono text-[11px] font-semibold uppercase tracking-wider text-violet-300">
+                Your Skills (comma-separated)
               </label>
               <input
                 type="text"
                 value={skillsInput}
                 onChange={(e) => setSkillsInput(e.target.value)}
                 placeholder="python, fastapi, sql, docker"
-                className="mt-2 w-full border-b border-[#141413]/40 bg-transparent pb-2 text-sm font-medium text-[#141413] placeholder-[#141413]/40 focus:border-[#141413] focus:outline-none"
+                className="mt-2 w-full rounded-xl border border-white/15 bg-[#0A0D18] px-3.5 py-2.5 text-sm text-white placeholder-slate-500 transition focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-400/20"
               />
             </div>
 
             <div className="md:col-span-1">
-              <label className="block font-mono text-[11px] uppercase tracking-[0.1em] text-[#141413]/65">
+              <label className="block font-mono text-[11px] font-semibold uppercase tracking-wider text-amber-300">
                 YOE
               </label>
               <input
@@ -254,17 +290,17 @@ export default function HomePage() {
                 value={yoeInput}
                 onChange={(e) => setYoeInput(e.target.value)}
                 placeholder="1"
-                className="mt-2 w-full border-b border-[#141413]/40 bg-transparent pb-2 font-mono text-sm text-[#141413] placeholder-[#141413]/40 focus:border-[#141413] focus:outline-none"
+                className="mt-2 w-full rounded-xl border border-white/15 bg-[#0A0D18] px-3 py-2.5 font-mono text-sm text-white placeholder-slate-500 transition focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400/20"
               />
             </div>
 
             <div className="flex items-center justify-between gap-3 md:col-span-3">
-              <label className="flex cursor-pointer items-center gap-2 font-mono text-xs uppercase tracking-[0.06em] text-[#141413]/80">
+              <label className="flex cursor-pointer items-center gap-2 rounded-xl border border-white/15 bg-[#0A0D18] px-3 py-2.5 text-xs font-medium text-slate-200 hover:border-cyan-400/40">
                 <input
                   type="checkbox"
                   checked={remoteOnly}
                   onChange={(e) => setRemoteOnly(e.target.checked)}
-                  className="h-4 w-4 accent-[#141413]"
+                  className="h-4 w-4 accent-cyan-400"
                 />
                 <span>Remote</span>
               </label>
@@ -272,7 +308,7 @@ export default function HomePage() {
               <button
                 type="submit"
                 disabled={loadingSearch}
-                className="rounded-full border border-[#141413] bg-[#141413] px-5 py-2.5 text-xs font-medium uppercase tracking-[0.1em] text-[#F7F6F2] transition hover:bg-transparent hover:text-[#141413] disabled:opacity-50"
+                className="flex-1 rounded-xl bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-blue-500/25 transition hover:brightness-110 disabled:opacity-50"
               >
                 {loadingSearch ? "Searching..." : "Search Roles"}
               </button>
@@ -280,55 +316,69 @@ export default function HomePage() {
           </form>
 
           {error && (
-            <div className="mt-5 border border-[#141413] bg-[#E7E4DC] px-4 py-3 font-mono text-xs text-[#141413]">
+            <div className="mt-4 rounded-xl border border-rose-400/40 bg-rose-500/15 px-4 py-3 text-sm text-rose-200">
               Error: {error}
             </div>
           )}
         </div>
       </section>
 
-      {/* Main Split Editorial Grid */}
-      <section id="roles" className="mx-auto max-w-7xl px-6 py-10 md:px-10">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
-          {/* Left Column: Index of Roles */}
-          <div className="lg:col-span-7">
-            <div className="flex items-baseline justify-between border-b border-[#141413] pb-3">
-              <h2 className="font-mono text-xs uppercase tracking-[0.12em] text-[#141413]">
-                Selected Index ({results.length})
-              </h2>
-              <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-[#141413]/60">
-                Click row to inspect
+      {/* Main Split Workbench */}
+      <section className="mx-auto max-w-7xl px-6 py-8 md:px-10">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
+          {/* Left Column: Vibrant Ranked Cards */}
+          <div className="space-y-4 lg:col-span-7">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <span className="h-2.5 w-2.5 rounded-full bg-gradient-to-r from-cyan-400 to-indigo-400" />
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-200">
+                  Ranked Matches ({results.length})
+                </h2>
+              </div>
+              <span className="font-mono text-xs text-slate-400">
+                Select any role to inspect
               </span>
             </div>
 
             {results.length === 0 && !loadingSearch ? (
-              <div className="border-b border-[#141413]/15 py-12 text-sm text-[#141413]/65">
-                No roles loaded yet. Click <strong>Search Roles</strong> above to query your Postgres index.
+              <div className="rounded-2xl border border-dashed border-white/15 bg-white/[0.03] p-10 text-center">
+                <p className="text-sm text-slate-300">
+                  Click <span className="font-semibold text-cyan-300">Search Roles</span> above to query your indexed ATS jobs.
+                </p>
               </div>
             ) : (
-              <div className="divide-y divide-[#141413]/15 border-b border-[#141413]/15">
+              <div className="space-y-3">
                 {results.map((job, idx) => {
                   const isSelected = selectedJob?.job_id === job.job_id;
+                  const accent = ACCENT_GRADIENTS[idx % ACCENT_GRADIENTS.length];
                   return (
                     <article
                       key={job.job_id}
                       onClick={() => void inspectJob(job)}
-                      className={`group cursor-pointer py-5 transition ${
-                        isSelected ? "bg-[#E7E4DC]/80 px-4 -mx-4" : "hover:bg-[#E7E4DC]/40"
+                      className={`group cursor-pointer rounded-2xl border p-5 transition-all ${
+                        isSelected
+                          ? "border-cyan-400/70 bg-gradient-to-r from-cyan-500/15 via-indigo-500/15 to-violet-500/15 shadow-lg shadow-cyan-500/10"
+                          : `bg-gradient-to-r ${accent} bg-[#0B0E1A]/90 hover:-translate-y-0.5 hover:border-white/30`
                       }`}
                     >
                       <div className="flex items-start justify-between gap-4">
-                        <div className="flex items-baseline gap-4">
-                          <span className="font-mono text-xs text-[#141413]/50">
+                        <div className="flex items-start gap-3.5">
+                          <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/10 font-mono text-xs font-bold text-cyan-300">
                             {String(idx + 1).padStart(2, "0")}
                           </span>
                           <div>
-                            <h3 className="text-lg font-medium tracking-[-0.02em] text-[#141413] group-hover:underline underline-offset-4">
+                            <h3 className="text-base font-semibold text-white group-hover:text-cyan-200">
                               {job.title}
                             </h3>
-                            <p className="mt-1 text-xs uppercase tracking-[0.08em] text-[#141413]/65">
-                              {job.company} · {job.location || "Location N/A"}
-                              {job.is_remote ? " · Remote" : ""}
+                            <p className="mt-1 flex flex-wrap items-center gap-2 text-xs text-slate-300">
+                              <span className="font-semibold text-violet-300">{job.company}</span>
+                              <span className="text-slate-600">•</span>
+                              <span>{job.location || "Location N/A"}</span>
+                              {job.is_remote && (
+                                <span className="rounded-full border border-sky-400/40 bg-sky-500/15 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-sky-200">
+                                  Remote
+                                </span>
+                              )}
                             </p>
                           </div>
                         </div>
@@ -338,18 +388,26 @@ export default function HomePage() {
                           target="_blank"
                           rel="noreferrer"
                           onClick={(e) => e.stopPropagation()}
-                          className="shrink-0 rounded-full border border-[#141413]/30 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.08em] text-[#141413] transition hover:border-[#141413] hover:bg-[#141413] hover:text-[#F7F6F2]"
+                          className="shrink-0 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-xs font-semibold text-white transition hover:border-cyan-300 hover:bg-cyan-400 hover:text-slate-950"
                         >
                           Apply ↗
                         </a>
                       </div>
 
-                      <div className="mt-3 flex items-center justify-between pl-8 font-mono text-[11px] text-[#141413]/60">
-                        <span>
-                          ID #{job.job_id} · RRF {job.rrf_score?.toFixed(4)} · Score {job.score?.toFixed(4)}
-                        </span>
-                        <span className="uppercase tracking-[0.08em] text-[#141413]">
-                          {isSelected ? "Inspecting →" : "Inspect"}
+                      <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-3 pl-10 font-mono text-[11px]">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="rounded-md bg-white/5 px-2 py-0.5 text-slate-300">
+                            ID #{job.job_id}
+                          </span>
+                          <span className="rounded-md bg-indigo-500/15 px-2 py-0.5 text-indigo-200">
+                            RRF {job.rrf_score?.toFixed(4)}
+                          </span>
+                          <span className="rounded-md bg-emerald-500/15 px-2 py-0.5 text-emerald-200">
+                            Score {job.score?.toFixed(4)}
+                          </span>
+                        </div>
+                        <span className="font-semibold text-cyan-300">
+                          {isSelected ? "Active Inspector →" : "Inspect →"}
                         </span>
                       </div>
                     </article>
@@ -359,64 +417,80 @@ export default function HomePage() {
             )}
           </div>
 
-          {/* Right Column: Ghost Trust & Risk Critic Dossier */}
-          <aside id="critic" className="lg:col-span-5">
-            <div className="sticky top-20 rounded-2xl border border-[#141413] bg-[#E7E4DC]/55 p-6 md:p-7">
-              <div className="flex items-center justify-between border-b border-[#141413]/20 pb-4">
-                <span className="font-mono text-xs uppercase tracking-[0.12em] text-[#141413]">
-                  Trust & Risk Critic
-                </span>
+          {/* Right Column: Colorful Ghost Trust & Risk Critic Dossier */}
+          <aside className="lg:col-span-5">
+            <div className="sticky top-24 rounded-2xl border border-white/15 bg-gradient-to-b from-[#111528] via-[#0D1020] to-[#0A0C18] p-6 shadow-2xl shadow-indigo-950/30">
+              <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                <div className="flex items-center gap-2">
+                  <span className="h-2.5 w-2.5 rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400" />
+                  <h2 className="text-sm font-bold uppercase tracking-wider text-white">
+                    Trust & Risk Critic
+                  </h2>
+                </div>
                 {trust && (
                   <span
-                    className={`rounded-full border px-3 py-1 font-mono text-[11px] font-medium tracking-[0.08em] ${
-                      trustPill(trust.trust_score).cls
+                    className={`rounded-full border px-3 py-1 text-xs font-bold ${
+                      trustTheme(trust.trust_score).pill
                     }`}
                   >
-                    {trustPill(trust.trust_score).label}
+                    {trustTheme(trust.trust_score).label}
                   </span>
                 )}
               </div>
 
               {!selectedJob ? (
-                <p className="mt-6 text-sm leading-relaxed text-[#141413]/70">
-                  Select any role in the index to inspect its ghost-listing signals, lifecycle features, and skill-fit risk critique.
+                <p className="mt-6 text-sm leading-relaxed text-slate-400">
+                  Click any job card on the left to inspect ghost-listing lifecycle signals and candidate fit risks.
                 </p>
               ) : loadingInspector ? (
-                <p className="mt-6 font-mono text-xs uppercase tracking-[0.08em] text-[#141413]/70">
-                  Running trust scorer & risk critic...
-                </p>
+                <div className="mt-6 flex items-center gap-3 text-xs font-medium text-cyan-300">
+                  <span className="h-3 w-3 animate-spin rounded-full border-2 border-cyan-300 border-t-transparent" />
+                  <span>Analyzing ghost signals & candidate fit...</span>
+                </div>
               ) : (
                 <div className="mt-5 space-y-6">
                   <div>
-                    <h3 className="text-xl font-medium tracking-[-0.02em] text-[#141413]">
-                      {selectedJob.title}
-                    </h3>
-                    <p className="mt-1 font-mono text-xs uppercase tracking-[0.08em] text-[#141413]/65">
+                    <h3 className="text-lg font-bold text-white">{selectedJob.title}</h3>
+                    <p className="mt-1 text-xs font-medium text-violet-300">
                       {selectedJob.company} · Job #{selectedJob.job_id}
                     </p>
                   </div>
 
+                  {/* Visual Trust Gauge */}
                   {trust && (
-                    <div className="space-y-2.5 border-t border-[#141413]/15 pt-4">
-                      <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.08em]">
-                        <span>Ghost Signals ({trust.model_version})</span>
-                        <span>Ghost P: {(trust.ghost_probability * 100).toFixed(1)}%</span>
+                    <div className="space-y-3 rounded-xl border border-white/10 bg-black/30 p-4">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="font-semibold text-slate-200">
+                          Ghost-Listing Risk ({trust.model_version})
+                        </span>
+                        <span className="font-mono font-semibold text-cyan-300">
+                          Ghost P: {(trust.ghost_probability * 100).toFixed(1)}%
+                        </span>
+                      </div>
+
+                      <div className="h-2.5 w-full overflow-hidden rounded-full bg-white/10">
+                        <div
+                          className={`h-full rounded-full bg-gradient-to-r ${
+                            trustTheme(trust.trust_score).bar
+                          }`}
+                          style={{ width: `${Math.max(8, trustTheme(trust.trust_score).pct)}%` }}
+                        />
                       </div>
 
                       {trust.top_signals.length === 0 ? (
-                        <p className="text-xs text-[#141413]/70">
-                          No elevated ghost signals triggered on current snapshot history.
+                        <p className="text-xs text-emerald-300/90">
+                          Clean snapshot history — no elevated ghost signals triggered.
                         </p>
                       ) : (
-                        <div className="space-y-2">
+                        <div className="space-y-2 pt-1">
                           {trust.top_signals.map((sig) => (
                             <div
                               key={sig.signal}
-                              className="flex items-center justify-between rounded-lg border border-[#141413]/15 bg-[#F7F6F2] px-3 py-2 font-mono text-xs"
+                              className="flex items-center justify-between rounded-lg border border-amber-400/25 bg-amber-500/10 px-3 py-2 font-mono text-xs text-amber-100"
                             >
                               <span>{sig.signal}</span>
-                              <span>
-                                {sig.raw_value} (+{sig.weight_contribution.toFixed(2)})
+                              <span className="text-amber-300">
+                                val={sig.raw_value} (+{sig.weight_contribution.toFixed(2)})
                               </span>
                             </div>
                           ))}
@@ -425,35 +499,36 @@ export default function HomePage() {
                     </div>
                   )}
 
+                  {/* Risk Critic Panel */}
                   {critic && (
-                    <div className="space-y-4 border-t border-[#141413]/15 pt-4">
+                    <div className="space-y-4 border-t border-white/10 pt-4">
                       <div className="flex items-center justify-between">
-                        <span className="font-mono text-xs uppercase tracking-[0.1em]">
+                        <span className="text-xs font-bold uppercase tracking-wider text-fuchsia-300">
                           Risk Critic Assessment
                         </span>
-                        <span className="rounded-full border border-[#141413] px-2.5 py-0.5 font-mono text-xs font-medium">
+                        <span className="rounded-full border border-indigo-400/40 bg-indigo-500/20 px-3 py-0.5 font-mono text-xs font-bold text-indigo-200">
                           Fit {(critic.fit_score * 100).toFixed(0)}%
                         </span>
                       </div>
 
                       {critic.summary && (
-                        <p className="text-sm leading-relaxed text-[#141413]/85">
+                        <p className="text-xs leading-relaxed text-slate-200">
                           {critic.summary}
                         </p>
                       )}
 
                       {critic.matched_skills.length > 0 && (
                         <div>
-                          <div className="mb-2 font-mono text-[11px] uppercase tracking-[0.08em] text-[#141413]/65">
+                          <div className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-emerald-300">
                             Matched Skills
                           </div>
                           <div className="flex flex-wrap gap-1.5">
                             {critic.matched_skills.map((sk) => (
                               <span
                                 key={sk}
-                                className="rounded-full border border-[#141413] bg-[#141413] px-2.5 py-0.5 font-mono text-[11px] text-[#F7F6F2]"
+                                className="rounded-full border border-emerald-400/40 bg-emerald-500/15 px-3 py-0.5 font-mono text-[11px] font-medium text-emerald-200"
                               >
-                                {sk}
+                                ✓ {sk}
                               </span>
                             ))}
                           </div>
@@ -462,16 +537,16 @@ export default function HomePage() {
 
                       {critic.missing_skills.length > 0 && (
                         <div>
-                          <div className="mb-2 font-mono text-[11px] uppercase tracking-[0.08em] text-[#141413]/65">
+                          <div className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-amber-300">
                             Gaps to Verify
                           </div>
                           <div className="flex flex-wrap gap-1.5">
                             {critic.missing_skills.map((sk) => (
                               <span
                                 key={sk}
-                                className="rounded-full border border-[#141413]/40 bg-[#F7F6F2] px-2.5 py-0.5 font-mono text-[11px] text-[#141413]"
+                                className="rounded-full border border-amber-400/40 bg-amber-500/15 px-3 py-0.5 font-mono text-[11px] font-medium text-amber-200"
                               >
-                                {sk}
+                                ! {sk}
                               </span>
                             ))}
                           </div>
@@ -483,7 +558,7 @@ export default function HomePage() {
                           {critic.risks.map((rk, idx) => (
                             <li
                               key={idx}
-                              className="rounded-lg border border-[#141413]/15 bg-[#F7F6F2] px-3 py-2 text-xs leading-relaxed text-[#141413]/85"
+                              className="rounded-xl border border-violet-400/20 bg-violet-500/10 px-3.5 py-2.5 text-xs leading-relaxed text-slate-200"
                             >
                               {rk}
                             </li>
@@ -498,14 +573,6 @@ export default function HomePage() {
           </aside>
         </div>
       </section>
-
-      {/* Editorial Footer */}
-      <footer className="border-t border-[#141413]/15 bg-[#F7F6F2]">
-        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-4 px-6 py-8 font-mono text-xs uppercase tracking-[0.08em] text-[#141413]/65 sm:flex-row md:px-10">
-          <span>TrueHire · Grounded Job Search & Ghost Risk Workbench</span>
-          <span>FastAPI · PostgreSQL pgvector · Next.js</span>
-        </div>
-      </footer>
     </main>
   );
 }
