@@ -6,9 +6,32 @@ from datetime import datetime, timezone
 from pathlib import Path
 import asyncpg
 from app.ghost.scorer import score_features
+from app.ingestion.embedder import embed_texts, format_pgvector
 from app.retrieval.pipeline import hybrid_search
 
 DEFAULT_DB_URL = "postgresql://truehire:truehire_dev@localhost:5432/truehire"
+
+BM25_ONLY_SQL = """
+SELECT
+    j.id AS job_id,
+    ts_rank_cd(j.tsv, websearch_to_tsquery('english', $1)) AS score
+FROM jobs j
+WHERE j.is_active = TRUE
+  AND j.tsv @@ websearch_to_tsquery('english', $1)
+ORDER BY score DESC
+LIMIT $2
+"""
+
+DENSE_ONLY_SQL = """
+SELECT
+    j.id AS job_id,
+    1.0 - (j.embedding <=> $1::vector) AS score
+FROM jobs j
+WHERE j.is_active = TRUE
+  AND j.embedding IS NOT NULL
+ORDER BY j.embedding <=> $1::vector ASC
+LIMIT $2
+"""
 
 
 def dcg_at_k(rels: list[int], k: int) -> float:
@@ -66,6 +89,40 @@ def evaluate_ghost_set(samples: list[tuple[dict[str, float], int]], threshold: f
     }
 
 
+async def _rank_for_query(
+    conn: asyncpg.Connection,
+    mode: str,
+    query_text: str,
+    q_vec_str: str,
+    user_skills: list[str],
+) -> list[int]:
+    if mode == "bm25":
+        rows = await conn.fetch(BM25_ONLY_SQL, query_text, 20)
+        return [int(r["job_id"]) for r in rows]
+    if mode == "dense":
+        rows = await conn.fetch(DENSE_ONLY_SQL, q_vec_str, 20)
+        return [int(r["job_id"]) for r in rows]
+    if mode == "hybrid_rrf":
+        hits = await hybrid_search(
+            conn=conn,
+            query=query_text,
+            user_skills=[],
+            top_k=20,
+            use_rerank=False,
+        )
+        return [int(h["job_id"]) for h in hits]
+    if mode == "hybrid_rrf_rerank_personalize":
+        hits = await hybrid_search(
+            conn=conn,
+            query=query_text,
+            user_skills=user_skills,
+            top_k=20,
+            use_rerank=True,
+        )
+        return [int(h["job_id"]) for h in hits]
+    raise ValueError(f"Unknown ablation mode: {mode}")
+
+
 async def evaluate_retrieval_configs(conn: asyncpg.Connection) -> dict:
     queries = await conn.fetch("SELECT id, text FROM eval_queries ORDER BY id")
     labels_rows = await conn.fetch("SELECT query_id, job_id, grade FROM eval_labels")
@@ -74,37 +131,47 @@ async def evaluate_retrieval_configs(conn: asyncpg.Connection) -> dict:
     for r in labels_rows:
         labels_by_query.setdefault(int(r["query_id"]), {})[int(r["job_id"])] = int(r["grade"])
 
-    configs = {
-        "hybrid_rrf_rerank": {"use_rerank": True, "skills": ["python", "fastapi", "sql"]},
-        "hybrid_rrf_no_rerank": {"use_rerank": False, "skills": []},
-    }
+    query_texts = [q["text"] for q in queries]
+    query_vecs = embed_texts(query_texts) if query_texts else []
+    vec_by_qid = {int(q["id"]): format_pgvector(v) for q, v in zip(queries, query_vecs)}
 
+    modes = [
+        ("bm25", "BM25 only"),
+        ("dense", "Dense only"),
+        ("hybrid_rrf", "Hybrid RRF"),
+        ("hybrid_rrf_rerank_personalize", "+ rerank + personalization"),
+    ]
+
+    sample_skills = ["python", "fastapi", "postgresql", "sql", "docker", "react", "pytorch"]
     report: dict[str, dict] = {}
-    for cfg_name, cfg in configs.items():
+
+    for mode_key, display_name in modes:
         ndcgs, recalls, mrrs = [], [], []
         for q in queries:
             qid = int(q["id"])
             gmap = labels_by_query.get(qid, {})
             if not gmap:
                 continue
-            hits = await hybrid_search(
-                conn=conn,
-                query=q["text"],
-                user_skills=cfg["skills"],
-                top_k=20,
-                use_rerank=cfg["use_rerank"],
-            )
-            ranked_ids = [int(h["job_id"]) for h in hits]
+            ranked_ids = await _rank_for_query(conn, mode_key, q["text"], vec_by_qid[qid], sample_skills)
             ndcgs.append(ndcg_at_k(ranked_ids, gmap, 10))
             recalls.append(recall_at_k(ranked_ids, gmap, 20))
             mrrs.append(mrr_at_k(ranked_ids, gmap, 10))
 
-        report[cfg_name] = {
+        report[mode_key] = {
+            "label": display_name,
             "queries_evaluated": len(ndcgs),
             "ndcg_at_10": round(sum(ndcgs) / len(ndcgs), 4) if ndcgs else 0.0,
             "recall_at_20": round(sum(recalls) / len(recalls), 4) if recalls else 0.0,
             "mrr_at_10": round(sum(mrrs) / len(mrrs), 4) if mrrs else 0.0,
         }
+
+    print("\n=== Retrieval Ablation Summary ===")
+    print(f"{'Config':<30} {'nDCG@10':>9} {'Recall@20':>10} {'MRR@10':>9}")
+    print("-" * 62)
+    for mode_key, _ in modes:
+        m = report[mode_key]
+        print(f"{m['label']:<30} {m['ndcg_at_10']:>9.4f} {m['recall_at_20']:>10.4f} {m['mrr_at_10']:>9.4f}")
+    print()
 
     return report
 
@@ -127,7 +194,7 @@ async def main() -> None:
         }
         await conn.execute(
             "INSERT INTO eval_runs (config, metrics) VALUES ($1::jsonb, $2::jsonb)",
-            json.dumps({"suite": "retrieval_and_ghost_v1"}),
+            json.dumps({"suite": "retrieval_4way_ablation_v1"}),
             json.dumps(summary),
         )
         out_path = Path("evals/results/latest_eval.json")
