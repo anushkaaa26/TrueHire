@@ -1,0 +1,151 @@
+job_id,company,title,location,first_seen,last_seen,is_active,pred_ghost_prob,ghost_label,labeler_2,notes
+1,Groww,Assistant Manager - Internal Audit,"Bengaluru-VTP, India",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+2,Groww,Content - Intern,"Bengaluru, India",2026-11-27,2026-11-27,1,0.2755,,,proxy_label_pending
+3,Groww,Creative Illustrator,"Bengaluru-VTP, India",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+4,Groww,Finance Content Creator,"Bengaluru, India",2026-11-27,2026-11-27,1,0.2755,,,proxy_label_pending
+5,Groww,Portfolio Specialist - Wealth,"Bengaluru-VTP, India",2026-11-27,2026-11-27,1,0.2405,,,proxy_label_pending
+6,Groww,Procurement Specialist,"Bengaluru-VTP, India",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+7,Groww,Product Research Specialist (W from Groww),"Bengaluru-VTP, India",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+8,Groww,Relationship Manager,India,2026-11-27,2026-11-27,1,0.2405,,,proxy_label_pending
+9,Groww,Senior Manager - Underwriter (Bonds),"Bengaluru-VTP, India",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+10,Slice,Account Manager,"Skopje, Ohrid, Debar",2026-11-27,2026-11-27,1,0.1952,,,proxy_label_pending
+11,Slice,Associate Account Manager,"Skopje, Ohrid, Debar",2026-11-27,2026-11-27,1,0.2114,,,proxy_label_pending
+12,Slice,Associate Account Manager,Pristina,2026-11-27,2026-11-27,1,0.1824,,,proxy_label_pending
+13,Slice,Customer Experience Representative,Pristina,2026-11-27,2026-11-27,1,0.2285,,,proxy_label_pending
+14,Slice,Customer Experience Representative,Skopje,2026-11-27,2026-11-27,1,0.2285,,,proxy_label_pending
+15,Slice,Customer Experience Representative,Debar,2026-11-27,2026-11-27,1,0.2285,,,proxy_label_pending
+16,Slice,Customer Experience Representative - Part Time,Skopje,2026-11-27,2026-11-27,1,0.1952,,,proxy_label_pending
+17,Slice,Customer Experience Representative-  Part Time (Thursday - Saturday),Debar,2026-11-27,2026-11-27,1,0.1952,,,proxy_label_pending
+18,Slice,"Engineering Manager, Services","Remote- Canada, United Kingdom or North Macedonia",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+19,Slice,Global People Operations Specialist,UK Remote,2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+20,Slice,Hardware Fulfillment Associate,"Bellmawr New Jersey, Philadelphia Pennsylvania",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+21,Slice,Inside Sales Representative,"Skopje, Pristina",2026-11-27,2026-11-27,1,0.1952,,,proxy_label_pending
+22,Slice,Senior Customer Experience Representative,Pristina,2026-11-27,2026-11-27,1,0.1952,,,proxy_label_pending
+23,Slice,Senior Inside Sales Representative,"Skopje, Pristina",2026-11-27,2026-11-27,1,0.1952,,,proxy_label_pending
+24,Slice,Social Media Coordinator (Part-time),"Debar, Ohrid, Skopje",2026-11-27,2026-11-27,1,0.1824,,,proxy_label_pending
+25,Slice,Social Media Coordinator (Part-time),"Pristina, Kosovo",2026-11-27,2026-11-27,1,0.1824,,,proxy_label_pending
+26,Slice,"Software Developer, DevEx (Stateful Systems)",Remote - UK or North Macedonia,2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+27,Slice,"Software Developer, Services",United Kingdom,2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+28,Slice,"Supervisor, Phone Operations","Debar, Prishtina",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+29,Slice,Talent Acquisition Partner - GTM,"Prishtina, Kosovo",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+30,Slice,"Trainer, Customer Support & Phone Teams","Skopje, Ohrid, Debar, Pristina",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+31,Slice,Video Editor,"Debar, Ohrid, Skopje",2026-11-27,2026-11-27,1,0.2114,,,proxy_label_pending
+32,Slice,Video Editor,"Pristina, Kosovo",2026-11-27,2026-11-27,1,0.2114,,,proxy_label_pending
+33,GitLab,"Applied AI Engineer, Enterprise AI","Bangalore, India",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+34,GitLab,"Backend Engineer, GitLab Orbit","Remote, Canada; Remote, United States",2026-11-27,2026-11-27,1,0.2256,,,proxy_label_pending
+35,GitLab,"Backend Engineer (Python),AI Engineering: Agent Foundations","Remote, Canada; Remote, Poland; Remote, United Kingdom",2026-11-27,2026-11-27,1,0.2592,,,proxy_label_pending
+36,GitLab,"Backend Engineer (Ruby), AI Engineering: AI Catalog","Remote, United Kingdom",2026-11-27,2026-11-27,1,0.2592,,,proxy_label_pending
+37,GitLab,"Backend Engineer (Ruby), Plan: Spec-Driven Development","Remote, Poland",2026-11-27,2026-11-27,1,0.2435,,,proxy_label_pending
+38,GitLab,"Backend Engineer (Ruby), Plan: Spec-Driven Development","Remote, United Kingdom",2026-11-27,2026-11-27,1,0.2435,,,proxy_label_pending
+39,GitLab,"Backend Engineer, Trusted Agentic Development","Remote, Poland",2026-11-27,2026-11-27,1,0.2256,,,proxy_label_pending
+40,GitLab,Business Development Representative,"Remote, North America",2026-11-27,2026-11-27,1,0.2789,,,proxy_label_pending
+41,GitLab,Business Development Representative,"Remote, Ireland; Remote, Spain; Remote, United Kingdom",2026-11-27,2026-11-27,1,0.2789,,,proxy_label_pending
+42,GitLab,"Business Development Representative, Australia","Remote, Australia",2026-11-27,2026-11-27,1,0.1952,,,proxy_label_pending
+43,GitLab,"Business Development Representative, German Speaking","Remote Ireland; Remote, Spain; Remote, United Kingdom",2026-11-27,2026-11-27,1,0.2256,,,proxy_label_pending
+44,GitLab,"Business Development Representative, Japan",Remote,2026-11-27,2026-11-27,1,0.1952,,,proxy_label_pending
+45,GitLab,"Business Development Representative, SLED - West","Remote, United States",2026-11-27,2026-11-27,1,0.2256,,,proxy_label_pending
+46,GitLab,"Candidate Experience Specialist, Contractor (AMER)","Remote, United States",2026-11-27,2026-11-27,1,0.1952,,,proxy_label_pending
+47,GitLab,"Candidate Experience Specialist, Contractor (AUS)","Remote, Australia",2026-11-27,2026-11-27,1,0.1952,,,proxy_label_pending
+48,GitLab,"Candidate Experience Specialist, Team Lead (APJ)","Bangalore, India",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+49,GitLab,Cloud Platform Engineer,"Remote, Canada; Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+50,GitLab,Commercial Account Executive - Australia,"Remote, Australia",2026-11-27,2026-11-27,1,0.2592,,,proxy_label_pending
+51,GitLab,"Commercial Account Executive, Belux","Remote, France; Remote, Netherlands",2026-11-27,2026-11-27,1,0.2592,,,proxy_label_pending
+52,GitLab,"Commercial Account Executive - Mid-Market, Canada","Remote, Canada",2026-11-27,2026-11-27,1,0.2592,,,proxy_label_pending
+53,GitLab,"Commercial Account Executive - Mid-Market, East","Remote, United States",2026-11-27,2026-11-27,1,0.2592,,,proxy_label_pending
+54,GitLab,"Commercial Account Executive, Named - West","Remote, United States",2026-11-27,2026-11-27,1,0.2592,,,proxy_label_pending
+55,GitLab,Commercial Account Executive - South Korea,"Remote, South Korea",2026-11-27,2026-11-27,1,0.2256,,,proxy_label_pending
+56,GitLab,"Contract Talent Acquisition Sourcer, Sales (APJ)","Remote, Australia; Remote, Singapore",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+57,GitLab,Corporate Development Director,"Remote, United States",2026-11-27,2026-11-27,1,0.1952,,,proxy_label_pending
+58,GitLab,Customer Experience Enablement Lead,"Remote, United States",2026-11-27,2026-11-27,1,0.1952,,,proxy_label_pending
+59,GitLab,Customer Success Architect,"Remote, United States",2026-11-27,2026-11-27,1,0.2592,,,proxy_label_pending
+60,GitLab,"Customer Success Architect, Australia","Remote, Australia",2026-11-27,2026-11-27,1,0.2592,,,proxy_label_pending
+61,GitLab,Customer Success Architect - East,"Remote, United States",2026-11-27,2026-11-27,1,0.2592,,,proxy_label_pending
+62,GitLab,"Customer Success Architect, France","Remote, France",2026-11-27,2026-11-27,1,0.2592,,,proxy_label_pending
+63,GitLab,"Customer Success Architect, Japan","Remote, Japan",2026-11-27,2026-11-27,1,0.2592,,,proxy_label_pending
+64,GitLab,Customer Success Architect - West,"Remote, United States",2026-11-27,2026-11-27,1,0.2592,,,proxy_label_pending
+65,GitLab,Customer Success Engineer,"Remote, United States",2026-11-27,2026-11-27,1,0.2592,,,proxy_label_pending
+66,GitLab,"Customer Success Engineer, EMEA","Remote, Israel",2026-11-27,2026-11-27,1,0.2592,,,proxy_label_pending
+67,GitLab,"Customer Success Engineer, India","Remote, India",2026-11-27,2026-11-27,1,0.2592,,,proxy_label_pending
+68,GitLab,"Customer Success Engineer, Singapore","Remote, Singapore",2026-11-27,2026-11-27,1,0.2592,,,proxy_label_pending
+69,GitLab,Customer Success LATAM,"Remote, Brazil; Remote, Mexico",2026-11-27,2026-11-27,1,0.2256,,,proxy_label_pending
+70,GitLab,Customer Success Manager - East,"Remote, North America",2026-11-27,2026-11-27,1,0.2592,,,proxy_label_pending
+71,GitLab,"Demo Architect, EMEA","Remote, Germany; Remote, Poland; Remote, United Kingdom",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+72,GitLab,"Director, Analytics Engineering","Remote, Canada; Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+73,GitLab,"Director, FP&A","Remote, United States",2026-11-27,2026-11-27,1,0.2256,,,proxy_label_pending
+74,GitLab,"Director of Engineering, Database Excellence","Remote, Canada; Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+75,GitLab,"Director of Engineering, Dedicated Infrastructure & Platforms","Remote, Canada; Remote, United Kingdom; Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+76,GitLab,"Director of Product Management, Agentic Software Delivery","Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+77,GitLab,"Director of Product Management, Platforms","Remote, United States",2026-11-27,2026-11-27,1,0.2256,,,proxy_label_pending
+78,GitLab,Director of Success Architects,"Remote, Singapore",2026-11-27,2026-11-27,1,0.2592,,,proxy_label_pending
+79,GitLab,"Director, Professional Services Technical Architects","Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+80,GitLab,"Director, Regional Sales","Remote, Japan",2026-11-27,2026-11-27,1,0.1952,,,proxy_label_pending
+81,GitLab,"Director, Social Media","Remote, Canada; Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+82,GitLab,Ecosystem Operations Specialist,"Remote, Canada; Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+83,GitLab,Enablement Operations Manager,"Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+84,GitLab,Engineering Manager,"Bangalore, India",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+85,GitLab,"Engineering Manager, Architecture Engineering: Async","Remote, Poland; Remote, United Kingdom",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+86,GitLab,"Engineering Manager, Dedicated Integrations","Remote, United Kingdom",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+87,GitLab,"Engineering Manager, Security Platform: Authentication","Bangalore, India",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+88,GitLab,"Engineering Manager, SSCS: Supply Chain","Bangalore, India; Remote Ireland; Remote, Canada; Remote, Israel; Remote, United Kingdom; Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+89,GitLab,"Engineering Manager, Switchboard","Remote, United Kingdom",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+90,GitLab,Enterprise Account Executive - Singapore,"Remote, Singapore",2026-11-27,2026-11-27,1,0.1952,,,proxy_label_pending
+91,GitLab,Enterprise Account Executive - South Korea,"Remote, South Korea",2026-11-27,2026-11-27,1,0.1952,,,proxy_label_pending
+92,GitLab,"Executive Assistant, Marketing","Remote, Canada; Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+93,GitLab,"Executive Assistant, Office of the CFO","Remote, United States",2026-11-27,2026-11-27,1,0.1952,,,proxy_label_pending
+94,GitLab,"Executive Assistant, Office of the CTO","Remote, Canada; Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+95,GitLab,"Executive Assistant, Product and Marketing","Remote, Canada; Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+96,GitLab,Field CTO,"Remote, Australia; Remote, Singapore",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+97,GitLab,"Fullstack Engineer, Source Code: Repository Services (Ruby)","Remote, United Kingdom",2026-11-27,2026-11-27,1,0.1824,,,proxy_label_pending
+98,GitLab,"Fullstack Engineer, Source Code: Repository Services (Ruby)","Remote, Canada",2026-11-27,2026-11-27,1,0.1824,,,proxy_label_pending
+99,GitLab,"Intermediate Backend Engineer, India","Bangalore, India",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+100,GitLab,"Intermediate Backend Engineer, Pipeline Authoring","Remote, Poland",2026-11-27,2026-11-27,1,0.1952,,,proxy_label_pending
+101,GitLab,"Intermediate Backend Engineer , Security Factory","Bangalore, India",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+102,GitLab,"Intermediate Fullstack Engineer, Subscription Lifecycle","Remote, Canada; Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+103,GitLab,"Intermediate Security Engineer, Security Incident Response Team (SIRT)","Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+104,GitLab,"Intermediate Software Engineer, Security Factory: Vulnerability Management","Remote, Israel; Remote, United Kingdom",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+105,GitLab,Junior Talent Operations Specialist,"Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+106,GitLab,"Lead, Community Growth Marketing Manager","Remote, Canada; Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+107,GitLab,"Lead Customer Advocacy Manager, APJ","Remote, Australia; Remote, Singapore",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+108,GitLab,"Lead Legal Counsel, Corporate","Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+109,GitLab,Major Account Executive,"Remote, Germany",2026-11-27,2026-11-27,1,0.2592,,,proxy_label_pending
+110,GitLab,"Major Account Executive, Financial Services - US East","Remote, United States",2026-11-27,2026-11-27,1,0.2592,,,proxy_label_pending
+111,GitLab,"Major Account Executive, France","Remote, France",2026-11-27,2026-11-27,1,0.1952,,,proxy_label_pending
+112,GitLab,Major Account Executive Netherlands,"Remote, Netherlands",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+113,GitLab,"Major Account Executive, UK Public Sector","Remote, United Kingdom",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+114,GitLab,"Major Account Manager, Sweden","Remote, Sweden",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+115,GitLab,"Manager, Assigned Support Engineering (EMEA)","Remote, United Kingdom",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+116,GitLab,"Manager, Corporate Security - Platform Security","Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+117,GitLab,"Manager, Customer Success Manager (PubSec)","Remote, United States",2026-11-27,2026-11-27,1,0.1952,,,proxy_label_pending
+118,GitLab,"Manager, Professional Services Engineers, EMEA","Remote Ireland; Remote, France; Remote, Germany; Remote, Spain; Remote, United Kingdom",2026-11-27,2026-11-27,1,0.2592,,,proxy_label_pending
+119,GitLab,"Manager, Sales Recruiting (AMER)","Remote, Canada; Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+120,GitLab,"Manager, Sales Recruiting (APJ)","Remote, Australia; Remote, Singapore",2026-11-27,2026-11-27,1,0.1952,,,proxy_label_pending
+121,GitLab,"Manager/Senior Manager, Solution Architects - San Francisco","Remote, US",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+122,GitLab,"Manager, SOX PMO - Business Process","Remote, Canada; Remote, India; Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+123,GitLab,"Manager, Support Engineering (AMER)","Remote, Canada; Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+124,GitLab,Migration Engineer - GitLab Dedicated,"Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+125,GitLab,New Business Account Executive - Nordics,"Remote, Netherlands; Remote, Sweden; Remote, United Kingdom",2026-11-27,2026-11-27,1,0.2592,,,proxy_label_pending
+126,GitLab,People Safety & Resilience Manager,"Remote, Canada; Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+127,GitLab,People Systems Engineer,"Bangalore, India; Remote, Poland",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+128,GitLab,People Technology Analyst - Workday,"Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+129,GitLab,"Principal Engineer, Monetization Engineering","Remote, Canada; Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+130,GitLab,"Principal Executive Recruiter, GTM","Remote, Canada; Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+131,GitLab,"Principal Executive Recruiter, R&D","Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+132,GitLab,"Principal Product Marketing Manager, Competitive","Remote, Canada; Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+133,GitLab,Principal Revenue Strategist,"Remote, Canada",2026-11-27,2026-11-27,1,0.1824,,,proxy_label_pending
+134,GitLab,Principal Revenue Strategist,"Remote, United States",2026-11-27,2026-11-27,1,0.1824,,,proxy_label_pending
+135,GitLab,"Principal Security GRC Manager, Legal Assurance (USA)","Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+136,GitLab,Principal Security Researcher,"Remote, Canada; Remote, Israel; Remote, United Kingdom; Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+137,GitLab,Principal Strategic Sourcing Lead - Technology,"Remote, United States",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+138,GitLab,Principal Technical Program Manager,"Remote, Canada; Remote, United States",2026-11-27,2026-11-27,1,0.1824,,,proxy_label_pending
+139,GitLab,Principal Technical Program Manager,"Bangalore, India",2026-11-27,2026-11-27,1,0.1824,,,proxy_label_pending
+140,GitLab,"Professional Services, Program Manager","Remote, Canada",2026-11-27,2026-11-27,1,0.1824,,,proxy_label_pending
+141,GitLab,"Professional Services, Program Manager","Remote, United States",2026-11-27,2026-11-27,1,0.2114,,,proxy_label_pending
+142,GitLab,Professional Services Technical Architect - West,"Remote, Canada",2026-11-27,2026-11-27,1,0.1824,,,proxy_label_pending
+143,GitLab,Professional Services Technical Architect - West,"Remote, United States",2026-11-27,2026-11-27,1,0.1824,,,proxy_label_pending
+144,GitLab,"Public Sector Account Executive, Canada - Local Governments","Remote, Canada",2026-11-27,2026-11-27,1,0.1952,,,proxy_label_pending
+145,GitLab,Public Sector Enablement Lead,"Remote, United States",2026-11-27,2026-11-27,1,0.1952,,,proxy_label_pending
+146,GitLab,Public Sector Strategic Account Executive - Brazil,"Remote, Brazil",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+147,GitLab,"Public Sector Strategic Account Executive, DoW","Remote, United States",2026-11-27,2026-11-27,1,0.1952,,,proxy_label_pending
+148,GitLab,"Recruiter, GTM (EMEA)","Remote, Netherlands; Remote, United Kingdom",2026-11-27,2026-11-27,1,0.168,,,proxy_label_pending
+149,GitLab,"Recruiter, R&D (AMER)","Remote, Canada; Remote, United States",2026-11-27,2026-11-27,1,0.1952,,,proxy_label_pending
+150,GitLab,"Recruiter, R&D (APJ)","Bangalore, India",2026-11-27,2026-11-27,1,0.1952,,,proxy_label_pending
