@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: truehire-api
+    runtime: docker
+    plan: free
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: PYTHON_VERSION
+        value: 3.12.0
