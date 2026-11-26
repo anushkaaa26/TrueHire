@@ -1,12 +1,14 @@
 from datetime import date
 import asyncpg
 import httpx
-from app.ingestion.connectors import fetch_greenhouse, fetch_lever
+from app.ingestion.connectors import fetch_ashby, fetch_greenhouse, fetch_lever, fetch_remotive
 from app.ingestion.schemas import NormalizedJob
 
 FETCHERS = {
     "greenhouse": fetch_greenhouse,
     "lever": fetch_lever,
+    "ashby": fetch_ashby,
+    "remotive": fetch_remotive,
 }
 
 
