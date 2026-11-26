@@ -3,6 +3,7 @@ from datetime import date
 from uuid import UUID
 import asyncpg
 from fastapi import FastAPI, HTTPException, Query
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from app.ghost.features import extract_ghost_features
 from app.ghost.scorer import score_features
@@ -11,6 +12,14 @@ from app.retrieval.pipeline import SearchFilters, hybrid_search
 DEFAULT_DB_URL = "postgresql://truehire:truehire_dev@localhost:5432/truehire"
 
 app = FastAPI(title="TrueHire API", version="0.1.0")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 class FeedbackRequest(BaseModel):
