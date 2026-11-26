@@ -39,13 +39,6 @@ interface CriticReport {
   summary: string;
 }
 
-const CARD_ACCENTS = [
-  "bg-[#fefae0] border-[#ccd5ae] hover:border-[#d4a373]",
-  "bg-[#e9edc9]/65 border-[#ccd5ae] hover:border-[#d4a373]",
-  "bg-[#faedcd]/75 border-[#ccd5ae] hover:border-[#d4a373]",
-  "bg-[#fefae0] border-[#d4a373]/60 hover:border-[#28241d]/50",
-];
-
 export default function HomePage() {
   const [query, setQuery] = useState("Backend Python FastAPI engineer");
   const [skillsInput, setSkillsInput] = useState("python, fastapi, postgresql, docker");
@@ -158,7 +151,7 @@ export default function HomePage() {
       return {
         pct,
         label: `${pct}% Trusted`,
-        badge: "border-[#ccd5ae] bg-[#e9edc9] text-[#28241d]",
+        badge: "border-[#ccd5ae] bg-[#e9edc9] text-[#18181b]",
         bar: "bg-[#ccd5ae]",
       };
     }
@@ -166,112 +159,97 @@ export default function HomePage() {
       return {
         pct,
         label: `${pct}% Caution`,
-        badge: "border-[#d4a373] bg-[#faedcd] text-[#28241d]",
+        badge: "border-[#d4a373] bg-[#faedcd] text-[#18181b]",
         bar: "bg-[#d4a373]",
       };
     }
     return {
       pct,
-      label: `${pct}% High Ghost Risk`,
-      badge: "border-[#28241d] bg-[#d4a373]/40 text-[#28241d]",
-      bar: "bg-[#28241d]",
+      label: `${pct}% Ghost Risk`,
+      badge: "border-[#d4a373] bg-[#fefae0] text-[#18181b]",
+      bar: "bg-[#d4a373]",
     };
   }
 
   return (
-    <main className="min-h-screen bg-[#fefae0] text-[#28241d] selection:bg-[#d4a373] selection:text-[#28241d]">
-      {/* Top Bar */}
-      <header className="sticky top-0 z-20 border-b border-[#ccd5ae] bg-[#fefae0]/95 backdrop-blur-md">
+    <main className="min-h-screen bg-[#ffffff] text-[#18181b] antialiased">
+      {/* Clean Header */}
+      <header className="sticky top-0 z-20 border-b border-zinc-200/90 bg-white/95 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-10">
-          <div className="flex items-center gap-3.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-[#d4a373] bg-[#faedcd] font-mono text-xs font-bold text-[#28241d] shadow-xs">
-              TH
-            </div>
-            <div>
-              <div className="flex items-center gap-2.5">
-                <span className="text-xl font-semibold tracking-tight text-[#28241d]">
-                  TrueHire
-                </span>
-                <span className="rounded-full border border-[#ccd5ae] bg-[#e9edc9] px-2.5 py-0.5 font-mono text-[10px] font-medium uppercase tracking-wider text-[#28241d]/80">
-                  ATS Workbench
-                </span>
-              </div>
-            </div>
+          <div className="flex items-center gap-3">
+            <span className="h-3 w-3 rounded-full bg-[#d4a373]" />
+            <span className="text-xl font-bold tracking-tight text-zinc-950">TrueHire</span>
+            <span className="hidden rounded-full border border-[#ccd5ae] bg-[#e9edc9]/70 px-2.5 py-0.5 font-mono text-[11px] font-medium text-zinc-800 sm:inline">
+              Hybrid RRF · Ghost Trust · Risk Critic
+            </span>
           </div>
 
           <div className="flex items-center gap-3">
-            <span className="hidden items-center gap-2 rounded-full border border-[#ccd5ae] bg-[#faedcd]/70 px-3 py-1 font-mono text-[11px] text-[#28241d]/75 sm:inline-flex">
-              <span className="h-2 w-2 rounded-full bg-[#d4a373]" />
+            <span className="hidden rounded-full border border-zinc-200 bg-[#fefae0] px-3 py-1 font-mono text-[11px] text-zinc-700 md:inline">
               {API_BASE}
             </span>
             <button
               type="button"
               onClick={() => void handleSearch()}
-              className="rounded-full border border-[#28241d] bg-[#d4a373] px-4 py-1.5 text-xs font-semibold text-[#28241d] transition hover:bg-[#ccd5ae]"
+              className="rounded-lg bg-zinc-950 px-4 py-2 text-xs font-bold tracking-wide text-white shadow-xs transition hover:bg-zinc-800"
             >
-              Quick Search
+              Search Roles
             </button>
           </div>
         </div>
       </header>
 
-      {/* Editorial Hero & Search Bar */}
-      <section className="border-b border-[#ccd5ae] bg-gradient-to-b from-[#fefae0] via-[#faedcd]/45 to-[#e9edc9]/40">
+      {/* Hero & Search Bar */}
+      <section className="border-b border-zinc-200 bg-gradient-to-b from-[#ffffff] via-[#fefae0]/55 to-[#e9edc9]/30">
         <div className="mx-auto max-w-7xl px-6 py-10 md:px-10 md:py-12">
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end">
-            <div className="lg:col-span-8">
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#d4a373]/70 bg-[#faedcd] px-3 py-1 font-mono text-[11px] uppercase tracking-widest text-[#28241d]/85">
+          <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+            <div className="max-w-3xl">
+              <p className="inline-flex items-center gap-2 rounded-full border border-[#d4a373]/60 bg-[#faedcd]/80 px-3 py-1 font-mono text-[11px] font-semibold uppercase tracking-wider text-zinc-900">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#d4a373]" />
-                Hybrid SQL RRF · Ghost Signals · Risk Critic
-              </div>
-              <h1 className="mt-4 text-3xl font-semibold leading-[1.1] tracking-[-0.03em] text-[#28241d] sm:text-5xl">
-                Curated roles,{" "}
-                <span className="rounded-lg bg-[#e9edc9] px-2 py-0.5 text-[#28241d]">
-                  grounded signals
-                </span>
-                , and clear fit checks.
+                ATS Snapshot Intelligence
+              </p>
+              <h1 className="mt-3 text-3xl font-bold tracking-tight text-zinc-950 sm:text-5xl">
+                Find roles worth applying to, backed by{" "}
+                <span className="border-b-4 border-[#d4a373] pb-0.5">trust signals</span>.
               </h1>
             </div>
-            <div className="lg:col-span-4">
-              <p className="text-sm leading-relaxed text-[#28241d]/75">
-                Search daily-snapshotted ATS listings using lexical and vector fusion, audit ghost-listing lifecycle signals, and inspect skill gaps.
-              </p>
-            </div>
+            <p className="max-w-sm text-sm leading-relaxed text-zinc-600">
+              Combine lexical and semantic search with snapshot lifecycle scoring and candidate skill-gap analysis.
+            </p>
           </div>
 
-          {/* Search Form */}
           <form
             onSubmit={handleSearch}
-            className="mt-8 grid grid-cols-1 gap-4 rounded-2xl border border-[#ccd5ae] bg-[#fefae0] p-5 shadow-sm md:grid-cols-12 md:items-end"
+            className="mt-8 grid grid-cols-1 gap-4 rounded-2xl border border-zinc-200/90 bg-white p-5 shadow-xs md:grid-cols-12 md:items-end"
           >
             <div className="md:col-span-4">
-              <label className="block font-mono text-[11px] font-semibold uppercase tracking-wider text-[#28241d]/70">
-                Role or Keyword Query
+              <label className="block font-mono text-[11px] font-semibold uppercase tracking-wider text-zinc-600">
+                Role or Query
               </label>
               <input
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Backend Python FastAPI engineer"
-                className="mt-2 w-full rounded-xl border border-[#ccd5ae] bg-[#faedcd]/45 px-3.5 py-2.5 text-sm text-[#28241d] placeholder-[#28241d]/40 transition focus:border-[#d4a373] focus:bg-[#fefae0] focus:outline-none"
+                className="mt-2 w-full rounded-xl border border-zinc-200 bg-[#fefae0]/50 px-3.5 py-2.5 text-sm text-zinc-950 placeholder-zinc-400 transition focus:border-[#d4a373] focus:bg-white focus:outline-none"
               />
             </div>
 
             <div className="md:col-span-4">
-              <label className="block font-mono text-[11px] font-semibold uppercase tracking-wider text-[#28241d]/70">
-                Your Skills (comma-separated)
+              <label className="block font-mono text-[11px] font-semibold uppercase tracking-wider text-zinc-600">
+                Your Skills
               </label>
               <input
                 type="text"
                 value={skillsInput}
                 onChange={(e) => setSkillsInput(e.target.value)}
                 placeholder="python, fastapi, sql, docker"
-                className="mt-2 w-full rounded-xl border border-[#ccd5ae] bg-[#e9edc9]/45 px-3.5 py-2.5 text-sm text-[#28241d] placeholder-[#28241d]/40 transition focus:border-[#d4a373] focus:bg-[#fefae0] focus:outline-none"
+                className="mt-2 w-full rounded-xl border border-zinc-200 bg-[#e9edc9]/45 px-3.5 py-2.5 text-sm text-zinc-950 placeholder-zinc-400 transition focus:border-[#d4a373] focus:bg-white focus:outline-none"
               />
             </div>
 
             <div className="md:col-span-1">
-              <label className="block font-mono text-[11px] font-semibold uppercase tracking-wider text-[#28241d]/70">
+              <label className="block font-mono text-[11px] font-semibold uppercase tracking-wider text-zinc-600">
                 YOE
               </label>
               <input
@@ -279,17 +257,17 @@ export default function HomePage() {
                 value={yoeInput}
                 onChange={(e) => setYoeInput(e.target.value)}
                 placeholder="1"
-                className="mt-2 w-full rounded-xl border border-[#ccd5ae] bg-[#faedcd]/45 px-3 py-2.5 font-mono text-sm text-[#28241d] placeholder-[#28241d]/40 transition focus:border-[#d4a373] focus:bg-[#fefae0] focus:outline-none"
+                className="mt-2 w-full rounded-xl border border-zinc-200 bg-[#faedcd]/45 px-3 py-2.5 font-mono text-sm text-zinc-950 placeholder-zinc-400 transition focus:border-[#d4a373] focus:bg-white focus:outline-none"
               />
             </div>
 
             <div className="flex items-center justify-between gap-3 md:col-span-3">
-              <label className="flex cursor-pointer items-center gap-2 rounded-xl border border-[#ccd5ae] bg-[#e9edc9]/60 px-3 py-2.5 text-xs font-medium text-[#28241d] hover:border-[#d4a373]">
+              <label className="flex cursor-pointer items-center gap-2 rounded-xl border border-[#ccd5ae] bg-[#e9edc9]/60 px-3 py-2.5 text-xs font-semibold text-zinc-900 hover:bg-[#e9edc9]">
                 <input
                   type="checkbox"
                   checked={remoteOnly}
                   onChange={(e) => setRemoteOnly(e.target.checked)}
-                  className="h-4 w-4 accent-[#d4a373]"
+                  className="h-4 w-4 accent-zinc-950"
                 />
                 <span>Remote</span>
               </label>
@@ -297,7 +275,7 @@ export default function HomePage() {
               <button
                 type="submit"
                 disabled={loadingSearch}
-                className="flex-1 rounded-xl border border-[#28241d] bg-[#d4a373] px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-[#28241d] transition hover:bg-[#ccd5ae] disabled:opacity-50"
+                className="flex-1 rounded-xl bg-zinc-950 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-xs transition hover:bg-zinc-800 disabled:opacity-50"
               >
                 {loadingSearch ? "Searching..." : "Search Roles"}
               </button>
@@ -305,68 +283,63 @@ export default function HomePage() {
           </form>
 
           {error && (
-            <div className="mt-4 rounded-xl border border-[#d4a373] bg-[#faedcd] px-4 py-3 text-sm font-medium text-[#28241d]">
+            <div className="mt-4 rounded-xl border border-[#d4a373] bg-[#faedcd] px-4 py-3 text-sm font-medium text-zinc-900">
               Error: {error}
             </div>
           )}
         </div>
       </section>
 
-      {/* Main Split Workbench */}
+      {/* Main Content Grid */}
       <section className="mx-auto max-w-7xl px-6 py-8 md:px-10">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
-          {/* Left Column: Ranked Job Cards */}
+          {/* Left: Ranked Jobs */}
           <div className="space-y-4 lg:col-span-7">
-            <div className="flex items-center justify-between border-b border-[#ccd5ae] pb-3">
-              <div className="flex items-center gap-2.5">
-                <span className="h-2.5 w-2.5 rounded-full bg-[#d4a373]" />
-                <h2 className="font-mono text-xs font-semibold uppercase tracking-wider text-[#28241d]">
-                  Ranked Matches ({results.length})
+            <div className="flex items-center justify-between border-b border-zinc-200 pb-3">
+              <div className="flex items-center gap-2">
+                <span className="h-2.5 w-2.5 rounded-full bg-[#ccd5ae]" />
+                <h2 className="text-xs font-bold uppercase tracking-wider text-zinc-900">
+                  Matching Roles ({results.length})
                 </h2>
               </div>
-              <span className="font-mono text-xs text-[#28241d]/65">
-                Click any role to inspect
-              </span>
+              <span className="font-mono text-xs text-zinc-500">Click a role to inspect</span>
             </div>
 
             {results.length === 0 && !loadingSearch ? (
-              <div className="rounded-2xl border border-dashed border-[#ccd5ae] bg-[#faedcd]/45 p-10 text-center">
-                <p className="text-sm text-[#28241d]/75">
-                  Click <span className="font-semibold text-[#28241d]">Search Roles</span> above to load indexed ATS jobs.
-                </p>
+              <div className="rounded-2xl border border-dashed border-zinc-300 bg-[#fefae0]/60 p-10 text-center text-sm text-zinc-600">
+                Click <strong className="text-zinc-950">Search Roles</strong> above to view ranked jobs from Postgres.
               </div>
             ) : (
               <div className="space-y-3">
                 {results.map((job, idx) => {
                   const isSelected = selectedJob?.job_id === job.job_id;
-                  const cardTone = CARD_ACCENTS[idx % CARD_ACCENTS.length];
                   return (
                     <article
                       key={job.job_id}
                       onClick={() => void inspectJob(job)}
-                      className={`group cursor-pointer rounded-2xl border p-5 transition-all ${
+                      className={`group cursor-pointer rounded-2xl border p-5 transition ${
                         isSelected
-                          ? "border-[#28241d] bg-[#faedcd] shadow-sm"
-                          : `${cardTone}`
+                          ? "border-zinc-950 bg-[#fefae0] shadow-xs"
+                          : "border-zinc-200 bg-white hover:border-[#d4a373] hover:bg-[#fefae0]/45"
                       }`}
                     >
                       <div className="flex items-start justify-between gap-4">
                         <div className="flex items-start gap-3.5">
-                          <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-[#ccd5ae] bg-[#e9edc9] font-mono text-xs font-bold text-[#28241d]">
+                          <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-[#ccd5ae] bg-[#e9edc9] font-mono text-xs font-bold text-zinc-900">
                             {String(idx + 1).padStart(2, "0")}
                           </span>
                           <div>
-                            <h3 className="text-base font-semibold text-[#28241d] group-hover:underline underline-offset-4">
+                            <h3 className="text-base font-semibold text-zinc-950 group-hover:underline underline-offset-4">
                               {job.title}
                             </h3>
-                            <p className="mt-1 flex flex-wrap items-center gap-2 text-xs text-[#28241d]/75">
-                              <span className="rounded-md bg-[#e9edc9] px-2 py-0.5 font-semibold text-[#28241d]">
+                            <p className="mt-1 flex flex-wrap items-center gap-2 text-xs text-zinc-600">
+                              <span className="rounded-md bg-[#faedcd] px-2 py-0.5 font-semibold text-zinc-900">
                                 {job.company}
                               </span>
                               <span>·</span>
                               <span>{job.location || "Location N/A"}</span>
                               {job.is_remote && (
-                                <span className="rounded-full border border-[#d4a373] bg-[#faedcd] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#28241d]">
+                                <span className="rounded-full border border-[#ccd5ae] bg-[#e9edc9] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-zinc-900">
                                   Remote
                                 </span>
                               )}
@@ -379,26 +352,26 @@ export default function HomePage() {
                           target="_blank"
                           rel="noreferrer"
                           onClick={(e) => e.stopPropagation()}
-                          className="shrink-0 rounded-full border border-[#ccd5ae] bg-[#e9edc9] px-3.5 py-1.5 text-xs font-semibold text-[#28241d] transition hover:border-[#d4a373] hover:bg-[#d4a373]"
+                          className="shrink-0 rounded-lg bg-zinc-950 px-3.5 py-1.5 text-xs font-bold text-white transition hover:bg-zinc-800"
                         >
                           Apply ↗
                         </a>
                       </div>
 
-                      <div className="mt-4 flex items-center justify-between border-t border-[#ccd5ae]/80 pt-3 pl-10 font-mono text-[11px]">
+                      <div className="mt-4 flex items-center justify-between border-t border-zinc-100 pt-3 pl-10 font-mono text-[11px] text-zinc-600">
                         <div className="flex flex-wrap items-center gap-2">
-                          <span className="rounded-md border border-[#ccd5ae] bg-[#fefae0] px-2 py-0.5 text-[#28241d]/80">
-                            ID #{job.job_id}
+                          <span className="rounded-md bg-zinc-100 px-2 py-0.5 text-zinc-800">
+                            #{job.job_id}
                           </span>
-                          <span className="rounded-md bg-[#e9edc9] px-2 py-0.5 text-[#28241d]">
+                          <span className="rounded-md bg-[#e9edc9]/70 px-2 py-0.5 text-zinc-900">
                             RRF {job.rrf_score?.toFixed(4)}
                           </span>
-                          <span className="rounded-md bg-[#faedcd] px-2 py-0.5 text-[#28241d]">
+                          <span className="rounded-md bg-[#faedcd]/80 px-2 py-0.5 text-zinc-900">
                             Score {job.score?.toFixed(4)}
                           </span>
                         </div>
-                        <span className="font-semibold text-[#28241d]">
-                          {isSelected ? "Active →" : "Inspect →"}
+                        <span className="font-semibold text-zinc-950">
+                          {isSelected ? "Selected →" : "Inspect →"}
                         </span>
                       </div>
                     </article>
@@ -408,19 +381,19 @@ export default function HomePage() {
             )}
           </div>
 
-          {/* Right Column: Trust & Risk Critic Panel */}
+          {/* Right: Trust & Risk Critic Panel */}
           <aside className="lg:col-span-5">
-            <div className="sticky top-24 rounded-2xl border border-[#ccd5ae] bg-[#faedcd]/65 p-6 shadow-xs">
-              <div className="flex items-center justify-between border-b border-[#ccd5ae] pb-4">
+            <div className="sticky top-24 rounded-2xl border border-zinc-200 bg-[#fefae0]/70 p-6 shadow-xs">
+              <div className="flex items-center justify-between border-b border-zinc-200 pb-4">
                 <div className="flex items-center gap-2">
                   <span className="h-2.5 w-2.5 rounded-full bg-[#d4a373]" />
-                  <h2 className="font-mono text-xs font-bold uppercase tracking-wider text-[#28241d]">
+                  <h2 className="text-xs font-bold uppercase tracking-wider text-zinc-950">
                     Trust & Risk Critic
                   </h2>
                 </div>
                 {trust && (
                   <span
-                    className={`rounded-full border px-3 py-1 font-mono text-xs font-semibold ${
+                    className={`rounded-full border px-3 py-1 font-mono text-xs font-bold ${
                       trustStyle(trust.trust_score).badge
                     }`}
                   >
@@ -430,36 +403,32 @@ export default function HomePage() {
               </div>
 
               {!selectedJob ? (
-                <p className="mt-6 text-sm leading-relaxed text-[#28241d]/75">
-                  Select any role in the list to review ghost-listing lifecycle signals and candidate fit analysis.
+                <p className="mt-6 text-sm leading-relaxed text-zinc-600">
+                  Select a job card on the left to inspect ghost-listing trust signals and candidate fit analysis.
                 </p>
               ) : loadingInspector ? (
-                <div className="mt-6 flex items-center gap-3 text-xs font-medium text-[#28241d]/80">
-                  <span className="h-3 w-3 animate-spin rounded-full border-2 border-[#d4a373] border-t-transparent" />
-                  <span>Evaluating trust signals and risk critique...</span>
-                </div>
+                <p className="mt-6 font-mono text-xs text-zinc-600">Evaluating trust & risk signals...</p>
               ) : (
                 <div className="mt-5 space-y-6">
                   <div>
-                    <h3 className="text-lg font-semibold text-[#28241d]">{selectedJob.title}</h3>
-                    <p className="mt-1 font-mono text-xs text-[#28241d]/70">
+                    <h3 className="text-lg font-bold text-zinc-950">{selectedJob.title}</h3>
+                    <p className="mt-1 font-mono text-xs text-zinc-600">
                       {selectedJob.company} · Job #{selectedJob.job_id}
                     </p>
                   </div>
 
-                  {/* Trust Meter */}
                   {trust && (
-                    <div className="space-y-3 rounded-xl border border-[#ccd5ae] bg-[#fefae0] p-4">
+                    <div className="space-y-3 rounded-xl border border-zinc-200 bg-white p-4">
                       <div className="flex items-center justify-between text-xs">
-                        <span className="font-semibold text-[#28241d]">
+                        <span className="font-semibold text-zinc-900">
                           Ghost Risk ({trust.model_version})
                         </span>
-                        <span className="font-mono font-medium text-[#28241d]/80">
-                          Ghost P: {(trust.ghost_probability * 100).toFixed(1)}%
+                        <span className="font-mono text-zinc-700">
+                          {(trust.ghost_probability * 100).toFixed(1)}%
                         </span>
                       </div>
 
-                      <div className="h-2.5 w-full overflow-hidden rounded-full border border-[#ccd5ae] bg-[#e9edc9]/60">
+                      <div className="h-2.5 w-full overflow-hidden rounded-full bg-zinc-100">
                         <div
                           className={`h-full rounded-full ${trustStyle(trust.trust_score).bar}`}
                           style={{ width: `${Math.max(8, trustStyle(trust.trust_score).pct)}%` }}
@@ -467,7 +436,7 @@ export default function HomePage() {
                       </div>
 
                       {trust.top_signals.length === 0 ? (
-                        <p className="text-xs text-[#28241d]/75">
+                        <p className="text-xs text-zinc-600">
                           No elevated ghost signals triggered on current snapshot history.
                         </p>
                       ) : (
@@ -475,7 +444,7 @@ export default function HomePage() {
                           {trust.top_signals.map((sig) => (
                             <div
                               key={sig.signal}
-                              className="flex items-center justify-between rounded-lg border border-[#d4a373]/70 bg-[#faedcd] px-3 py-2 font-mono text-xs text-[#28241d]"
+                              className="flex items-center justify-between rounded-lg border border-[#d4a373]/60 bg-[#faedcd]/65 px-3 py-2 font-mono text-xs text-zinc-900"
                             >
                               <span>{sig.signal}</span>
                               <span>
@@ -488,36 +457,33 @@ export default function HomePage() {
                     </div>
                   )}
 
-                  {/* Risk Critic Section */}
                   {critic && (
-                    <div className="space-y-4 border-t border-[#ccd5ae] pt-4">
+                    <div className="space-y-4 border-t border-zinc-200 pt-4">
                       <div className="flex items-center justify-between">
-                        <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#28241d]">
+                        <span className="text-xs font-bold uppercase tracking-wider text-zinc-950">
                           Risk Critic Assessment
                         </span>
-                        <span className="rounded-full border border-[#ccd5ae] bg-[#e9edc9] px-3 py-0.5 font-mono text-xs font-semibold text-[#28241d]">
+                        <span className="rounded-full border border-[#ccd5ae] bg-[#e9edc9] px-3 py-0.5 font-mono text-xs font-bold text-zinc-950">
                           Fit {(critic.fit_score * 100).toFixed(0)}%
                         </span>
                       </div>
 
                       {critic.summary && (
-                        <p className="text-xs leading-relaxed text-[#28241d]/85">
-                          {critic.summary}
-                        </p>
+                        <p className="text-xs leading-relaxed text-zinc-700">{critic.summary}</p>
                       )}
 
                       {critic.matched_skills.length > 0 && (
                         <div>
-                          <div className="mb-2 font-mono text-[11px] font-semibold uppercase tracking-wider text-[#28241d]/70">
+                          <div className="mb-2 font-mono text-[11px] font-semibold uppercase tracking-wider text-zinc-600">
                             Matched Skills
                           </div>
                           <div className="flex flex-wrap gap-1.5">
                             {critic.matched_skills.map((sk) => (
                               <span
                                 key={sk}
-                                className="rounded-full border border-[#ccd5ae] bg-[#e9edc9] px-3 py-0.5 font-mono text-[11px] font-medium text-[#28241d]"
+                                className="rounded-full border border-[#ccd5ae] bg-[#e9edc9] px-3 py-0.5 font-mono text-[11px] font-semibold text-zinc-900"
                               >
-                                ✓ {sk}
+                                {sk}
                               </span>
                             ))}
                           </div>
@@ -526,16 +492,16 @@ export default function HomePage() {
 
                       {critic.missing_skills.length > 0 && (
                         <div>
-                          <div className="mb-2 font-mono text-[11px] font-semibold uppercase tracking-wider text-[#28241d]/70">
+                          <div className="mb-2 font-mono text-[11px] font-semibold uppercase tracking-wider text-zinc-600">
                             Gaps to Verify
                           </div>
                           <div className="flex flex-wrap gap-1.5">
                             {critic.missing_skills.map((sk) => (
                               <span
                                 key={sk}
-                                className="rounded-full border border-[#d4a373] bg-[#fefae0] px-3 py-0.5 font-mono text-[11px] font-medium text-[#28241d]"
+                                className="rounded-full border border-[#d4a373] bg-[#faedcd] px-3 py-0.5 font-mono text-[11px] font-semibold text-zinc-900"
                               >
-                                ! {sk}
+                                {sk}
                               </span>
                             ))}
                           </div>
@@ -547,7 +513,7 @@ export default function HomePage() {
                           {critic.risks.map((rk, idx) => (
                             <li
                               key={idx}
-                              className="rounded-xl border border-[#ccd5ae] bg-[#fefae0] px-3.5 py-2.5 text-xs leading-relaxed text-[#28241d]/85"
+                              className="rounded-xl border border-zinc-200 bg-white px-3.5 py-2.5 text-xs leading-relaxed text-zinc-800"
                             >
                               {rk}
                             </li>
