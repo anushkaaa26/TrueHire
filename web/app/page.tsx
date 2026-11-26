@@ -76,7 +76,7 @@ export default function HomePage() {
       const data = await res.json();
       const hits: JobHit[] = data.results || [];
       setResults(hits);
-      if (hits.length > 0 && !selectedJob) {
+      if (hits.length > 0) {
         void inspectJob(hits[0]);
       }
     } catch (err) {
@@ -96,7 +96,6 @@ export default function HomePage() {
       const trustData: TrustReport = await trustRes.json();
       setTrust(trustData);
 
-      // Build Risk Critic analysis from /chat if available, with deterministic local fallback
       const yoe = Number.parseFloat(yoeInput);
       const chatRes = await fetch(`${API_BASE}/chat`, {
         method: "POST",
@@ -146,265 +145,313 @@ export default function HomePage() {
     }
   }
 
-  function trustBadge(score: number) {
+  function trustPill(score: number) {
     const pct = Math.round(score * 100);
     if (pct >= 70) {
       return {
-        label: `${pct}% Trusted`,
-        cls: "border-emerald-500/40 bg-emerald-500/10 text-emerald-300",
+        label: `${pct}% TRUSTED`,
+        cls: "border-[#141413] bg-[#141413] text-[#F7F6F2]",
       };
     }
     if (pct >= 45) {
       return {
-        label: `${pct}% Caution`,
-        cls: "border-amber-500/40 bg-amber-500/10 text-amber-300",
+        label: `${pct}% CAUTION`,
+        cls: "border-[#141413] bg-[#E7E4DC] text-[#141413]",
       };
     }
     return {
-      label: `${pct}% High Ghost Risk`,
-      cls: "border-rose-500/40 bg-rose-500/10 text-rose-300",
+      label: `${pct}% GHOST RISK`,
+      cls: "border-[#141413] bg-transparent text-[#141413] underline decoration-2 underline-offset-4",
     };
   }
 
   return (
-    <main className="min-h-screen bg-[#09090b] text-zinc-100 antialiased">
-      <div className="mx-auto max-w-7xl px-6 py-8">
-        {/* Top Header */}
-        <header className="flex flex-wrap items-center justify-between gap-4 border-b border-zinc-800/80 pb-6">
-          <div>
-            <div className="flex items-center gap-3">
-              <h1 className="text-2xl font-semibold tracking-tight text-white">TrueHire</h1>
-              <span className="rounded-full border border-zinc-800 bg-zinc-900 px-2.5 py-0.5 text-xs font-medium text-zinc-400">
-                Hybrid SQL RRF + Ghost Trust + Risk Critic
-              </span>
-            </div>
-            <p className="mt-1.5 text-sm text-zinc-400">
-              Daily-snapshotted ATS listings scored with lifecycle signals, Reciprocal Rank Fusion, and candidate fit analysis.
-            </p>
+    <main className="min-h-screen bg-[#F7F6F2] text-[#141413] selection:bg-[#141413] selection:text-[#F7F6F2]">
+      {/* Editorial Top Nav */}
+      <header className="sticky top-0 z-20 border-b border-[#141413]/15 bg-[#F7F6F2]/95 backdrop-blur-sm">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-10">
+          <div className="flex items-baseline gap-6">
+            <a href="#" className="text-xl font-semibold tracking-[-0.03em] text-[#141413]">
+              TrueHire<span className="text-xs align-super font-mono ml-1">01</span>
+            </a>
+            <nav className="hidden items-center gap-6 text-xs uppercase tracking-[0.12em] text-[#141413]/70 md:flex">
+              <a href="#search" className="hover:text-[#141413]">Search</a>
+              <a href="#roles" className="hover:text-[#141413]">Open Roles</a>
+              <a href="#critic" className="hover:text-[#141413]">Trust & Critic</a>
+            </nav>
           </div>
-          <div className="flex items-center gap-2 text-xs text-zinc-400">
-            <span className="h-2 w-2 rounded-full bg-emerald-400" />
-            <span>API: {API_BASE}</span>
-          </div>
-        </header>
-
-        {/* Search & Profile Controls */}
-        <form
-          onSubmit={handleSearch}
-          className="mt-6 grid grid-cols-1 gap-3 rounded-xl border border-zinc-800/90 bg-zinc-900/50 p-4 md:grid-cols-12"
-        >
-          <div className="md:col-span-5">
-            <label className="mb-1 block text-xs font-medium text-zinc-400">Role or Keyword Query</label>
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="e.g. Backend Python FastAPI engineer"
-              className="w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3.5 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:border-zinc-600 focus:outline-none"
-            />
-          </div>
-
-          <div className="md:col-span-4">
-            <label className="mb-1 block text-xs font-medium text-zinc-400">Your Skills (comma-separated)</label>
-            <input
-              type="text"
-              value={skillsInput}
-              onChange={(e) => setSkillsInput(e.target.value)}
-              placeholder="python, fastapi, sql, docker"
-              className="w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3.5 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:border-zinc-600 focus:outline-none"
-            />
-          </div>
-
-          <div className="md:col-span-1">
-            <label className="mb-1 block text-xs font-medium text-zinc-400">YOE</label>
-            <input
-              type="text"
-              value={yoeInput}
-              onChange={(e) => setYoeInput(e.target.value)}
-              placeholder="1"
-              className="w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:border-zinc-600 focus:outline-none"
-            />
-          </div>
-
-          <div className="flex flex-col justify-between gap-2 md:col-span-2">
-            <label className="flex cursor-pointer items-center gap-2 text-xs text-zinc-300 pt-1">
-              <input
-                type="checkbox"
-                checked={remoteOnly}
-                onChange={(e) => setRemoteOnly(e.target.checked)}
-                className="h-4 w-4 rounded border-zinc-700 bg-zinc-950 text-white focus:ring-0"
-              />
-              <span>Remote only</span>
-            </label>
+          <div className="flex items-center gap-3">
+            <span className="hidden font-mono text-[11px] uppercase tracking-[0.08em] text-[#141413]/60 sm:inline">
+              {API_BASE}
+            </span>
             <button
-              type="submit"
-              disabled={loadingSearch}
-              className="w-full rounded-lg bg-white px-3.5 py-2 text-xs font-semibold text-zinc-950 transition hover:bg-zinc-200 disabled:opacity-50"
+              type="button"
+              onClick={() => void handleSearch()}
+              className="rounded-full border border-[#141413] bg-[#141413] px-4 py-1.5 text-xs font-medium uppercase tracking-[0.08em] text-[#F7F6F2] transition hover:bg-transparent hover:text-[#141413]"
             >
-              {loadingSearch ? "Searching..." : "Search Roles"}
+              Run Search
             </button>
           </div>
-        </form>
+        </div>
+      </header>
 
-        {error && (
-          <div className="mt-4 rounded-lg border border-rose-500/40 bg-rose-500/10 px-4 py-3 text-sm text-rose-200">
-            Error: {error}
+      {/* Editorial Hero Statement */}
+      <section id="search" className="border-b border-[#141413]/15">
+        <div className="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-16">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-end">
+            <div className="lg:col-span-8">
+              <p className="font-mono text-xs uppercase tracking-[0.14em] text-[#141413]/60">
+                DAILY ATS SNAPSHOTS · HYBRID SQL RRF · GHOST SCORING
+              </p>
+              <h1 className="mt-4 text-4xl font-medium leading-[1.03] tracking-[-0.04em] text-[#141413] sm:text-6xl">
+                Roles that mean business. Signals you can trust.
+              </h1>
+            </div>
+            <div className="lg:col-span-4">
+              <p className="text-sm leading-relaxed text-[#141413]/75">
+                Search indexed ATS roles across lexical + dense vector fusion, inspect lifecycle ghost-listing risk, and run candidate fit checks without guessing.
+              </p>
+            </div>
           </div>
-        )}
 
-        {/* Two-Column Workbench: Ranked Results + Trust & Risk Critic Drawer */}
-        <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-12">
-          {/* Left: Ranked Jobs */}
-          <section className="space-y-3 lg:col-span-7">
-            <div className="flex items-center justify-between">
-              <h2 className="text-sm font-medium text-zinc-300">
-                Ranked Matches ({results.length})
+          {/* Editorial Filter Bar */}
+          <form
+            onSubmit={handleSearch}
+            className="mt-10 grid grid-cols-1 gap-4 border-t border-[#141413]/15 pt-6 md:grid-cols-12 md:items-end"
+          >
+            <div className="md:col-span-4">
+              <label className="block font-mono text-[11px] uppercase tracking-[0.1em] text-[#141413]/65">
+                Role or Query
+              </label>
+              <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Backend Python FastAPI engineer"
+                className="mt-2 w-full border-b border-[#141413]/40 bg-transparent pb-2 text-sm font-medium text-[#141413] placeholder-[#141413]/40 focus:border-[#141413] focus:outline-none"
+              />
+            </div>
+
+            <div className="md:col-span-4">
+              <label className="block font-mono text-[11px] uppercase tracking-[0.1em] text-[#141413]/65">
+                Candidate Skills
+              </label>
+              <input
+                type="text"
+                value={skillsInput}
+                onChange={(e) => setSkillsInput(e.target.value)}
+                placeholder="python, fastapi, sql, docker"
+                className="mt-2 w-full border-b border-[#141413]/40 bg-transparent pb-2 text-sm font-medium text-[#141413] placeholder-[#141413]/40 focus:border-[#141413] focus:outline-none"
+              />
+            </div>
+
+            <div className="md:col-span-1">
+              <label className="block font-mono text-[11px] uppercase tracking-[0.1em] text-[#141413]/65">
+                YOE
+              </label>
+              <input
+                type="text"
+                value={yoeInput}
+                onChange={(e) => setYoeInput(e.target.value)}
+                placeholder="1"
+                className="mt-2 w-full border-b border-[#141413]/40 bg-transparent pb-2 font-mono text-sm text-[#141413] placeholder-[#141413]/40 focus:border-[#141413] focus:outline-none"
+              />
+            </div>
+
+            <div className="flex items-center justify-between gap-3 md:col-span-3">
+              <label className="flex cursor-pointer items-center gap-2 font-mono text-xs uppercase tracking-[0.06em] text-[#141413]/80">
+                <input
+                  type="checkbox"
+                  checked={remoteOnly}
+                  onChange={(e) => setRemoteOnly(e.target.checked)}
+                  className="h-4 w-4 accent-[#141413]"
+                />
+                <span>Remote</span>
+              </label>
+
+              <button
+                type="submit"
+                disabled={loadingSearch}
+                className="rounded-full border border-[#141413] bg-[#141413] px-5 py-2.5 text-xs font-medium uppercase tracking-[0.1em] text-[#F7F6F2] transition hover:bg-transparent hover:text-[#141413] disabled:opacity-50"
+              >
+                {loadingSearch ? "Searching..." : "Search Roles"}
+              </button>
+            </div>
+          </form>
+
+          {error && (
+            <div className="mt-5 border border-[#141413] bg-[#E7E4DC] px-4 py-3 font-mono text-xs text-[#141413]">
+              Error: {error}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Main Split Editorial Grid */}
+      <section id="roles" className="mx-auto max-w-7xl px-6 py-10 md:px-10">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
+          {/* Left Column: Index of Roles */}
+          <div className="lg:col-span-7">
+            <div className="flex items-baseline justify-between border-b border-[#141413] pb-3">
+              <h2 className="font-mono text-xs uppercase tracking-[0.12em] text-[#141413]">
+                Selected Index ({results.length})
               </h2>
-              <span className="text-xs text-zinc-500">Click any role to inspect trust & fit risks</span>
+              <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-[#141413]/60">
+                Click row to inspect
+              </span>
             </div>
 
             {results.length === 0 && !loadingSearch ? (
-              <div className="rounded-xl border border-dashed border-zinc-800 bg-zinc-900/30 p-8 text-center text-sm text-zinc-400">
-                Run a search to inspect ranked roles, ghost-listing trust scores, and candidate risk analysis.
+              <div className="border-b border-[#141413]/15 py-12 text-sm text-[#141413]/65">
+                No roles loaded yet. Click <strong>Search Roles</strong> above to query your Postgres index.
               </div>
             ) : (
-              <div className="space-y-2.5">
-                {results.map((job) => {
-                  const active = selectedJob?.job_id === job.job_id;
+              <div className="divide-y divide-[#141413]/15 border-b border-[#141413]/15">
+                {results.map((job, idx) => {
+                  const isSelected = selectedJob?.job_id === job.job_id;
                   return (
-                    <div
+                    <article
                       key={job.job_id}
                       onClick={() => void inspectJob(job)}
-                      className={`cursor-pointer rounded-xl border p-4 transition ${
-                        active
-                          ? "border-zinc-500 bg-zinc-900"
-                          : "border-zinc-800/80 bg-zinc-900/40 hover:border-zinc-700 hover:bg-zinc-900/70"
+                      className={`group cursor-pointer py-5 transition ${
+                        isSelected ? "bg-[#E7E4DC]/80 px-4 -mx-4" : "hover:bg-[#E7E4DC]/40"
                       }`}
                     >
                       <div className="flex items-start justify-between gap-4">
-                        <div>
-                          <h3 className="text-sm font-semibold text-white">{job.title}</h3>
-                          <p className="mt-0.5 text-xs text-zinc-400">
-                            {job.company} · {job.location || "Location N/A"}
-                          </p>
-                        </div>
-                        <div className="flex shrink-0 items-center gap-2">
-                          {job.is_remote && (
-                            <span className="rounded-md border border-sky-500/30 bg-sky-500/10 px-2 py-0.5 text-[11px] font-medium text-sky-300">
-                              Remote
-                            </span>
-                          )}
-                          <span className="rounded-md border border-zinc-800 bg-zinc-950 px-2 py-0.5 font-mono text-[11px] text-zinc-300">
-                            #{job.job_id}
+                        <div className="flex items-baseline gap-4">
+                          <span className="font-mono text-xs text-[#141413]/50">
+                            {String(idx + 1).padStart(2, "0")}
                           </span>
+                          <div>
+                            <h3 className="text-lg font-medium tracking-[-0.02em] text-[#141413] group-hover:underline underline-offset-4">
+                              {job.title}
+                            </h3>
+                            <p className="mt-1 text-xs uppercase tracking-[0.08em] text-[#141413]/65">
+                              {job.company} · {job.location || "Location N/A"}
+                              {job.is_remote ? " · Remote" : ""}
+                            </p>
+                          </div>
                         </div>
-                      </div>
 
-                      <div className="mt-3 flex items-center justify-between text-xs text-zinc-500">
-                        <span className="font-mono">
-                          RRF: {job.rrf_score?.toFixed(4)} · Final: {job.score?.toFixed(4)}
-                        </span>
                         <a
                           href={job.apply_url}
                           target="_blank"
                           rel="noreferrer"
                           onClick={(e) => e.stopPropagation()}
-                          className="font-medium text-zinc-300 underline decoration-zinc-700 underline-offset-4 hover:text-white"
+                          className="shrink-0 rounded-full border border-[#141413]/30 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.08em] text-[#141413] transition hover:border-[#141413] hover:bg-[#141413] hover:text-[#F7F6F2]"
                         >
-                          Apply link ↗
+                          Apply ↗
                         </a>
                       </div>
-                    </div>
+
+                      <div className="mt-3 flex items-center justify-between pl-8 font-mono text-[11px] text-[#141413]/60">
+                        <span>
+                          ID #{job.job_id} · RRF {job.rrf_score?.toFixed(4)} · Score {job.score?.toFixed(4)}
+                        </span>
+                        <span className="uppercase tracking-[0.08em] text-[#141413]">
+                          {isSelected ? "Inspecting →" : "Inspect"}
+                        </span>
+                      </div>
+                    </article>
                   );
                 })}
               </div>
             )}
-          </section>
+          </div>
 
-          {/* Right: Ghost Trust + Risk Critic Panel */}
-          <aside className="space-y-4 lg:col-span-5">
-            <div className="rounded-xl border border-zinc-800/90 bg-zinc-900/50 p-5">
-              <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
-                <h2 className="text-sm font-semibold text-white">Trust & Risk Critic</h2>
+          {/* Right Column: Ghost Trust & Risk Critic Dossier */}
+          <aside id="critic" className="lg:col-span-5">
+            <div className="sticky top-20 rounded-2xl border border-[#141413] bg-[#E7E4DC]/55 p-6 md:p-7">
+              <div className="flex items-center justify-between border-b border-[#141413]/20 pb-4">
+                <span className="font-mono text-xs uppercase tracking-[0.12em] text-[#141413]">
+                  Trust & Risk Critic
+                </span>
                 {trust && (
                   <span
-                    className={`rounded-full border px-2.5 py-0.5 text-xs font-medium ${
-                      trustBadge(trust.trust_score).cls
+                    className={`rounded-full border px-3 py-1 font-mono text-[11px] font-medium tracking-[0.08em] ${
+                      trustPill(trust.trust_score).cls
                     }`}
                   >
-                    {trustBadge(trust.trust_score).label}
+                    {trustPill(trust.trust_score).label}
                   </span>
                 )}
               </div>
 
               {!selectedJob ? (
-                <p className="mt-4 text-xs text-zinc-400">
-                  Select a job card on the left to view ghost-listing signals and candidate fit risks.
+                <p className="mt-6 text-sm leading-relaxed text-[#141413]/70">
+                  Select any role in the index to inspect its ghost-listing signals, lifecycle features, and skill-fit risk critique.
                 </p>
               ) : loadingInspector ? (
-                <p className="mt-4 text-xs text-zinc-400">Analyzing listing signals and fit risks...</p>
+                <p className="mt-6 font-mono text-xs uppercase tracking-[0.08em] text-[#141413]/70">
+                  Running trust scorer & risk critic...
+                </p>
               ) : (
-                <div className="mt-4 space-y-5">
+                <div className="mt-5 space-y-6">
                   <div>
-                    <div className="text-sm font-semibold text-white">{selectedJob.title}</div>
-                    <div className="text-xs text-zinc-400">
-                      {selectedJob.company} · Job ID #{selectedJob.job_id}
-                    </div>
+                    <h3 className="text-xl font-medium tracking-[-0.02em] text-[#141413]">
+                      {selectedJob.title}
+                    </h3>
+                    <p className="mt-1 font-mono text-xs uppercase tracking-[0.08em] text-[#141413]/65">
+                      {selectedJob.company} · Job #{selectedJob.job_id}
+                    </p>
                   </div>
 
-                  {/* Ghost Signals */}
                   {trust && (
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="font-medium text-zinc-300">Ghost-Listing Signals</span>
-                        <span className="font-mono text-zinc-400">
-                          ghost_p={(trust.ghost_probability * 100).toFixed(1)}% ({trust.model_version})
-                        </span>
+                    <div className="space-y-2.5 border-t border-[#141413]/15 pt-4">
+                      <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.08em]">
+                        <span>Ghost Signals ({trust.model_version})</span>
+                        <span>Ghost P: {(trust.ghost_probability * 100).toFixed(1)}%</span>
                       </div>
-                      <div className="space-y-1.5">
-                        {trust.top_signals.length === 0 ? (
-                          <div className="rounded-lg border border-zinc-800 bg-zinc-950/70 px-3 py-2 text-xs text-zinc-400">
-                            No elevated ghost risk signals triggered yet.
-                          </div>
-                        ) : (
-                          trust.top_signals.map((sig) => (
+
+                      {trust.top_signals.length === 0 ? (
+                        <p className="text-xs text-[#141413]/70">
+                          No elevated ghost signals triggered on current snapshot history.
+                        </p>
+                      ) : (
+                        <div className="space-y-2">
+                          {trust.top_signals.map((sig) => (
                             <div
                               key={sig.signal}
-                              className="flex items-center justify-between rounded-lg border border-zinc-800 bg-zinc-950/80 px-3 py-2 text-xs"
+                              className="flex items-center justify-between rounded-lg border border-[#141413]/15 bg-[#F7F6F2] px-3 py-2 font-mono text-xs"
                             >
-                              <span className="font-mono text-zinc-200">{sig.signal}</span>
-                              <span className="font-mono text-zinc-400">
-                                val={sig.raw_value} · +{sig.weight_contribution.toFixed(2)}
+                              <span>{sig.signal}</span>
+                              <span>
+                                {sig.raw_value} (+{sig.weight_contribution.toFixed(2)})
                               </span>
                             </div>
-                          ))
-                        )}
-                      </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   )}
 
-                  {/* Risk Critic */}
                   {critic && (
-                    <div className="space-y-3 border-t border-zinc-800 pt-4">
+                    <div className="space-y-4 border-t border-[#141413]/15 pt-4">
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-semibold text-zinc-200">Risk Critic Fit Analysis</span>
-                        <span className="font-mono text-xs text-emerald-300">
-                          Fit: {(critic.fit_score * 100).toFixed(0)}%
+                        <span className="font-mono text-xs uppercase tracking-[0.1em]">
+                          Risk Critic Assessment
+                        </span>
+                        <span className="rounded-full border border-[#141413] px-2.5 py-0.5 font-mono text-xs font-medium">
+                          Fit {(critic.fit_score * 100).toFixed(0)}%
                         </span>
                       </div>
 
                       {critic.summary && (
-                        <p className="text-xs leading-relaxed text-zinc-300">{critic.summary}</p>
+                        <p className="text-sm leading-relaxed text-[#141413]/85">
+                          {critic.summary}
+                        </p>
                       )}
 
                       {critic.matched_skills.length > 0 && (
                         <div>
-                          <div className="mb-1.5 text-[11px] font-medium text-zinc-400">Matched Skills</div>
+                          <div className="mb-2 font-mono text-[11px] uppercase tracking-[0.08em] text-[#141413]/65">
+                            Matched Skills
+                          </div>
                           <div className="flex flex-wrap gap-1.5">
                             {critic.matched_skills.map((sk) => (
                               <span
                                 key={sk}
-                                className="rounded-md border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[11px] text-emerald-200"
+                                className="rounded-full border border-[#141413] bg-[#141413] px-2.5 py-0.5 font-mono text-[11px] text-[#F7F6F2]"
                               >
                                 {sk}
                               </span>
@@ -415,12 +462,14 @@ export default function HomePage() {
 
                       {critic.missing_skills.length > 0 && (
                         <div>
-                          <div className="mb-1.5 text-[11px] font-medium text-zinc-400">Skill Gaps to Address</div>
+                          <div className="mb-2 font-mono text-[11px] uppercase tracking-[0.08em] text-[#141413]/65">
+                            Gaps to Verify
+                          </div>
                           <div className="flex flex-wrap gap-1.5">
                             {critic.missing_skills.map((sk) => (
                               <span
                                 key={sk}
-                                className="rounded-md border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 text-[11px] text-amber-200"
+                                className="rounded-full border border-[#141413]/40 bg-[#F7F6F2] px-2.5 py-0.5 font-mono text-[11px] text-[#141413]"
                               >
                                 {sk}
                               </span>
@@ -430,9 +479,12 @@ export default function HomePage() {
                       )}
 
                       {critic.risks.length > 0 && (
-                        <ul className="space-y-1.5 text-xs text-zinc-300">
-                          {critic.risks.map((rk, i) => (
-                            <li key={i} className="rounded-lg border border-zinc-800/80 bg-zinc-950/60 px-3 py-2">
+                        <ul className="space-y-2">
+                          {critic.risks.map((rk, idx) => (
+                            <li
+                              key={idx}
+                              className="rounded-lg border border-[#141413]/15 bg-[#F7F6F2] px-3 py-2 text-xs leading-relaxed text-[#141413]/85"
+                            >
                               {rk}
                             </li>
                           ))}
@@ -445,7 +497,15 @@ export default function HomePage() {
             </div>
           </aside>
         </div>
-      </div>
+      </section>
+
+      {/* Editorial Footer */}
+      <footer className="border-t border-[#141413]/15 bg-[#F7F6F2]">
+        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-4 px-6 py-8 font-mono text-xs uppercase tracking-[0.08em] text-[#141413]/65 sm:flex-row md:px-10">
+          <span>TrueHire · Grounded Job Search & Ghost Risk Workbench</span>
+          <span>FastAPI · PostgreSQL pgvector · Next.js</span>
+        </div>
+      </footer>
     </main>
   );
 }
