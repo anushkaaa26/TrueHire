@@ -1,7 +1,7 @@
 import hashlib
 import re
 from html import unescape
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 
 
 def normalize_html(raw_html: str) -> str:
@@ -18,6 +18,11 @@ class NormalizedJob(BaseModel):
     is_remote: bool
     description: str
     apply_url: str
+
+    @field_validator("description", mode="before")
+    @classmethod
+    def _clean_description(cls, value: str) -> str:
+        return normalize_html(value or "")
 
     @property
     def content_hash(self) -> str:

@@ -22,6 +22,7 @@ User chat ─► FastAPI /chat ─────────┴─► Hybrid SQL R
 - **Daily snapshots recorded:** 7,278
 - **Lifecycle events recorded:** 7,278
 - **Ghost scorer** (n=0 proxy hand labels): Precision pending, Recall pending, F1 pending, Cohen's kappa pending
+- **Agent suite** (n=50 scripted runs): Tool correctness 1.0000, Schema validity 1.0000, Groundedness 1.0000, Latency p50 30.4 ms / p95 153.2 ms
 
 ## 4. Schema Highlights
 
